@@ -8,6 +8,7 @@ Skills here follow the open [agent skills specification](https://agentskills.io/
 
 | Skill | What it does |
 | --- | --- |
+| [`ti-create-release`](./skills/ti-create-release/SKILL.md) | Publish a new GitHub release of a Titanium native module — researches the repo's historical tag/name/notes convention, rebuilds from the merged default branch, and uploads the per-platform `.zip` produced in `<platform>/dist/` with one release per platform. |
 | [`ti-module-update`](./skills/ti-module-update/SKILL.md) | Update a Titanium native module's third-party dependency (`.xcframework` in `ios/platform`, `ios/spm.json`, or `android/build.gradle`) and the Titanium SDK itself, verify with `ti build --build-only`, document breaking changes in the README, and open a PR with the last two active maintainers as reviewers. |
 
 More skills will land here over time.
