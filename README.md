@@ -14,6 +14,7 @@ Skills here follow the open [agent skills specification](https://agentskills.io/
 | [`alloy-guides`](./skills/alloy-guides/SKILL.md) | Alloy MVC framework reference: core concepts, controllers, Backbone.js models / collections / data binding, sync adapters and migrations, XML markup, TSS styling (static and dynamic), widgets, the compile pipeline, and platform-specific TSS modifiers. |
 | [`ti-guides`](./skills/ti-guides/SKILL.md) | Titanium SDK fundamentals: `tiapp.xml` and `timodule.xml` configuration, app distribution (App Store, Google Play, AAB / IPA, certificates, provisioning), Hyperloop native access, Titanium CLI, CommonJS modules, memory and bridge optimization, and TiDev coding standards. |
 | [`ti-api`](./skills/ti-api/SKILL.md) | Titanium API reference: properties, methods, events, constants, and type signatures across `Ti.UI`, `Ti.Android`, `Ti.App`, `Ti.Media`, `Ti.Network`, `Ti.Database`, `Ti.Filesystem`, `Ti.Geolocation`, `Ti.Contacts`, `Ti.Calendar`, `Ti.XML`, and third-party modules (Map, BLE, NFC, Facebook, Identity, CoreMotion, URLSession). |
+| [`ti-howtos`](./skills/ti-howtos/SKILL.md) | Titanium SDK native integration how-tos: location services, Google Maps v2 / Map Kit, push notifications (APNs / FCM), camera and gallery, media APIs, SQLite, HTTPClient, WKWebView, Android Intents, iOS 17 privacy / Keychain / iCloud, WatchKit / Siri, Hyperloop, and CI/CD with Fastlane and Appium. |
 
 More skills will land here over time.
 

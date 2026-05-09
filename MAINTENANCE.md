@@ -10,6 +10,7 @@ The following skills under `skills/` track upstream documentation in [`tidev/tit
 |---|---|
 | `ti-api` | `docs/api/` |
 | `ti-guides` | `docs/guide/Titanium_SDK/Titanium_SDK_Guide` |
+| `ti-howtos` | `docs/guide/Titanium_SDK/Titanium_SDK_How-tos` |
 | `alloy-guides` | `docs/guide/Alloy_Framework/Alloy_Guide` |
 | `alloy-howtos` | `docs/guide/Alloy_Framework/Alloy_How-tos` |
 

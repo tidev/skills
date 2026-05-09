@@ -30,7 +30,7 @@ Note the latest commit hash (e.g. `git -C .titanium-docs rev-parse --short HEAD`
 
 | Source type | Skills | Audit approach |
 |---|---|---|
-| **Narrative** | `alloy-guides`, `alloy-howtos`, `ti-guides` | Compare reference files against official guide subdirectories |
+| **Narrative** | `alloy-guides`, `alloy-howtos`, `ti-guides`, `ti-howtos` | Compare reference files against official guide subdirectories |
 | **API** | `ti-api` | Compare against generated `.md` files in `.titanium-docs/docs/api/` |
 
 The source type determines audit strategy:
