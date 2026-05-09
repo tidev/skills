@@ -10,6 +10,10 @@ Skills here follow the open [agent skills specification](https://agentskills.io/
 | --- | --- |
 | [`ti-create-release`](./skills/ti-create-release/SKILL.md) | Publish a new GitHub release of a Titanium native module — researches the repo's historical tag/name/notes convention, rebuilds from the merged default branch, and uploads the per-platform `.zip` produced in `<platform>/dist/` with one release per platform. |
 | [`ti-module-update`](./skills/ti-module-update/SKILL.md) | Update a Titanium native module's third-party dependency (`.xcframework` in `ios/platform`, `ios/spm.json`, or `android/build.gradle`) and the Titanium SDK itself, verify with `ti build --build-only`, document breaking changes in the README, and open a PR with the last two active maintainers as reviewers. |
+| [`alloy-howtos`](./skills/alloy-howtos/SKILL.md) | Alloy MVC how-tos: CLI usage (`alloy new`, `generate`, `compile`, `extract-i18n`), `alloy.jmk` and `config.json` configuration, conditional views (`if=` in XML/TSS), custom XML tags in `app/lib/`, Backbone.Events for cross-controller communication, and compilation troubleshooting. |
+| [`alloy-guides`](./skills/alloy-guides/SKILL.md) | Alloy MVC framework reference: core concepts, controllers, Backbone.js models / collections / data binding, sync adapters and migrations, XML markup, TSS styling (static and dynamic), widgets, the compile pipeline, and platform-specific TSS modifiers. |
+| [`ti-guides`](./skills/ti-guides/SKILL.md) | Titanium SDK fundamentals: `tiapp.xml` and `timodule.xml` configuration, app distribution (App Store, Google Play, AAB / IPA, certificates, provisioning), Hyperloop native access, Titanium CLI, CommonJS modules, memory and bridge optimization, and TiDev coding standards. |
+| [`ti-api`](./skills/ti-api/SKILL.md) | Titanium API reference: properties, methods, events, constants, and type signatures across `Ti.UI`, `Ti.Android`, `Ti.App`, `Ti.Media`, `Ti.Network`, `Ti.Database`, `Ti.Filesystem`, `Ti.Geolocation`, `Ti.Contacts`, `Ti.Calendar`, `Ti.XML`, and third-party modules (Map, BLE, NFC, Facebook, Identity, CoreMotion, URLSession). |
 
 More skills will land here over time.
 
