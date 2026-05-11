@@ -6,7 +6,7 @@ Mapping of doc-based skills in this repo to their upstream documentation source.
 
 ## Documentation root
 
-All four doc-based skills source from a single upstream repo: [`tidev/titanium-docs`](https://github.com/tidev/titanium-docs).
+All five doc-based skills source from a single upstream repo: [`tidev/titanium-docs`](https://github.com/tidev/titanium-docs).
 
 | Local path | Upstream |
 |---|---|
@@ -77,6 +77,34 @@ All four doc-based skills source from a single upstream repo: [`tidev/titanium-d
 | `resources.md` | `Contributing_to_Titanium/` or community section |
 | `cli-reference.md` | CLI documentation across guide |
 | `app-distribution.md` | App distribution guides (App Store, Google Play) |
+
+---
+
+### `ti-howtos`
+
+- **Source type:** Narrative
+- **Official doc subtree:** `.titanium-docs/docs/guide/Titanium_SDK/Titanium_SDK_How-tos`
+
+| Reference file | Official source |
+|---|---|
+| `location-and-maps.md` | `Location_Services/` (overview + `Native_Maps_and_Annotations.md`) |
+| `google-maps-v2.md` | `Location_Services/Google_Maps_v2_for_Android.md` |
+| `ios-map-kit.md` | `Location_Services/iOS_Map_Kit.md` |
+| `notification-services.md` | `Notification_Services/` |
+| `remote-data-sources.md` | `Working_with_Remote_Data_Sources/` |
+| `local-data-sources.md` | `Working_with_Local_Data_Sources/` |
+| `buffer-codec-streams.md` | `Working_with_Local_Data_Sources/` (Buffer / Codec / Stream sections) |
+| `media-apis.md` | `Working_with_Media_APIs/` |
+| `web-content-integration.md` | `Integrating_Web_Content/` + `WKWebView.md` |
+| `webpack-build-pipeline.md` | `Webpack_Guide.md` |
+| `android-platform-deep-dives.md` | `Platform_API_Deep_Dives/Android_API_Deep_Dives/` |
+| `ios-platform-deep-dives.md` | `Platform_API_Deep_Dives/iOS_API_Deep_Dives/` + `Adhere_to_the_iOS17_Privacy_Requirements.md` |
+| `extending-titanium.md` | `Extending_Titanium_Mobile/` |
+| `debugging-profiling.md` | `Debugging_and_Profiling/` |
+| `cross-platform-development.md` | `Cross-Platform_Mobile_Development_In_Titanium/` |
+| `tutorials.md` | `Titanium_SDK_Tutorials/` |
+| `using-modules.md` | `Using_Modules/` |
+| `automation-fastlane-appium.md` | **No upstream source** — community / external tooling (Fastlane, Appium). Not in `tidev/titanium-docs`. Auditor should preserve as-is and only update if behavior of the external tools changes. |
 
 ---
 

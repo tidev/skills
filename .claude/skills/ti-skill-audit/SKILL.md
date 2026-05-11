@@ -1,6 +1,6 @@
 ---
 name: ti-skill-audit
-description: Use when reference files for the doc-based skills in this repo need re-aligning with upstream Titanium SDK documentation — after a `tidev/titanium-docs` release, when an audit reveals stale or training-data content, or before tagging a skills version. Covers `ti-api`, `ti-guides`, `alloy-guides`, and `alloy-howtos`. Maintenance-only — not intended for end-user Titanium projects.
+description: Use when reference files for the doc-based skills in this repo need re-aligning with upstream Titanium SDK documentation — after a `tidev/titanium-docs` release, when an audit reveals stale or training-data content, or before tagging a skills version. Covers `ti-api`, `ti-guides`, `ti-howtos`, `alloy-guides`, and `alloy-howtos`. Maintenance-only — not intended for end-user Titanium projects.
 ---
 
 # ti-skill-audit
@@ -11,10 +11,11 @@ For *creating* a new skill from scratch, use a generic skill-creator workflow in
 
 ## Scope
 
-This skill audits the four reference skills:
+This skill audits the five reference skills:
 
 - `ti-api`
 - `ti-guides`
+- `ti-howtos`
 - `alloy-guides`
 - `alloy-howtos`
 
@@ -48,7 +49,7 @@ Parse `$ARGUMENTS` to determine which skill to audit:
 | `<skill-name>` | Audit the named skill against its mapped doc subtree |
 | *(empty)* | Ask the user which skill to audit |
 
-Valid skill names: `ti-api`, `ti-guides`, `alloy-guides`, `alloy-howtos`.
+Valid skill names: `ti-api`, `ti-guides`, `ti-howtos`, `alloy-guides`, `alloy-howtos`.
 
 ## Audit workflow
 
