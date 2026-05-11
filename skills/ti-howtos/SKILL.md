@@ -1,6 +1,6 @@
 ---
 name: ti-howtos
-description: Use when implementing Titanium SDK native integrations: location services, Google Maps v2 (Android) or Map Kit (iOS), push notifications (APNs/FCM), camera and gallery, media APIs, SQLite databases, HTTPClient networking, WKWebView, Android Intents, iOS Keychain/iCloud, WatchKit/Siri, Hyperloop native modules, or CI/CD with Fastlane and Appium. Triggers include `tiapp.xml` in the project root plus calls to `Ti.Geolocation`, `Ti.Media`, `Ti.Database`, `Ti.Network.HTTPClient`, `Ti.UI.WebView`, `Ti.Filesystem`, or third-party modules like `ti.map`, `ti.playservices`, `ti.identity`.
+description: 'Use when implementing Titanium SDK native integrations: location services, Google Maps v2 (Android) or Map Kit (iOS), push notifications (APNs/FCM), camera and gallery, media APIs, SQLite databases, HTTPClient networking, WKWebView, Android Intents, iOS Keychain/iCloud, WatchKit/Siri, Hyperloop native modules, or CI/CD with Fastlane and Appium. Triggers include `tiapp.xml` in the project root plus calls to `Ti.Geolocation`, `Ti.Media`, `Ti.Database`, `Ti.Network.HTTPClient`, `Ti.UI.WebView`, `Ti.Filesystem`, or third-party modules like `ti.map`, `ti.playservices`, `ti.identity`.'
 ---
 
 # ti-howtos

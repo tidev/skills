@@ -1,6 +1,6 @@
 ---
 name: ti-api
-description: Use when looking up properties, methods, events, constants, or type signatures for any Titanium API: `Ti.UI`, `Ti.Android`, `Ti.App`, `Ti.Media`, `Ti.Network`, `Ti.Database`, `Ti.Filesystem`, `Ti.Geolocation`, `Ti.Contacts`, `Ti.Calendar`, `Global`, `Ti.XML`, or third-party modules (Map, BLE, NFC, Facebook, Identity, CoreMotion, URLSession). Triggers include `tiapp.xml` in the project root, or any code that references `Ti.*` or `Modules.*`.
+description: 'Use when looking up properties, methods, events, constants, or type signatures for any Titanium API: `Ti.UI`, `Ti.Android`, `Ti.App`, `Ti.Media`, `Ti.Network`, `Ti.Database`, `Ti.Filesystem`, `Ti.Geolocation`, `Ti.Contacts`, `Ti.Calendar`, `Global`, `Ti.XML`, or third-party modules (Map, BLE, NFC, Facebook, Identity, CoreMotion, URLSession). Triggers include `tiapp.xml` in the project root, or any code that references `Ti.*` or `Modules.*`.'
 ---
 
 # ti-api

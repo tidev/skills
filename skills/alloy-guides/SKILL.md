@@ -1,6 +1,6 @@
 ---
 name: alloy-guides
-description: Use when working with Alloy MVC projects: writing or reviewing Alloy controllers (`app/controllers/`), XML views (`app/views/`), TSS styles (`app/styles/`), Backbone models and collections (`app/models/`), sync adapters, migrations, widgets, or the Alloy compilation flow. Triggers include the `app/views/` + `app/controllers/` + `app/styles/` folder structure, or `app/models/` for data work. Alloy XML is not HTML; TSS is not CSS; controllers follow Alloy-specific patterns, not web MVC.
+description: 'Use when working with Alloy MVC projects: writing or reviewing Alloy controllers (`app/controllers/`), XML views (`app/views/`), TSS styles (`app/styles/`), Backbone models and collections (`app/models/`), sync adapters, migrations, widgets, or the Alloy compilation flow. Triggers include the `app/views/` + `app/controllers/` + `app/styles/` folder structure, or `app/models/` for data work. Alloy XML is not HTML; TSS is not CSS; controllers follow Alloy-specific patterns, not web MVC.'
 ---
 
 # alloy-guides
