@@ -1,6 +1,8 @@
 ---
 name: ti-skill-audit
 description: Use when reference files for the doc-based skills in this repo need re-aligning with upstream Titanium SDK documentation — after a `tidev/titanium-docs` release, when an audit reveals stale or training-data content, or before tagging a skills version. Covers `ti-api`, `ti-guides`, `ti-howtos`, `alloy-guides`, and `alloy-howtos`. Maintenance-only — not intended for end-user Titanium projects.
+metadata:
+  internal: true
 ---
 
 # ti-skill-audit
