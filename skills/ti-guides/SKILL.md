@@ -1,6 +1,6 @@
 ---
 name: ti-guides
-description: Use when working on Titanium SDK fundamentals: project configuration (`tiapp.xml`, `timodule.xml`), CommonJS modules, Hyperloop native access, app distribution (App Store / Google Play, certificates, provisioning), Titanium CLI usage, memory management, bridge optimization, SQLite transactions, image memory, or coding standards. Triggers include `tiapp.xml` in the project root, for either Alloy (`app/`) or Classic (`Resources/`) Titanium projects.
+description: 'Use when working on Titanium SDK fundamentals: project configuration (`tiapp.xml`, `timodule.xml`), CommonJS modules, Hyperloop native access, app distribution (App Store / Google Play, certificates, provisioning), Titanium CLI usage, memory management, bridge optimization, SQLite transactions, image memory, or coding standards. Triggers include `tiapp.xml` in the project root, for either Alloy (`app/`) or Classic (`Resources/`) Titanium projects.'
 ---
 
 # ti-guides
