@@ -261,21 +261,17 @@ Verify the updates are correct and complete.
    - `SKILL.md` should be under 500 lines.
    - References should be under 800 lines each.
 
-4. **Verify no orphaned content** — grep for references to removed or renamed sections.
+4. **Verify cross-references and orphaned content** (see subsection below).
 
----
+### Step 4 — Cross-reference and orphan-content verification
 
-## Phase 6.5: Cross-reference validation (MANDATORY when content moved between refs)
+Whenever Phase 5 moves a section from one reference to another, splits one ref into two, or renames a section heading, run **every** check below. The classic failure mode is a stale `(./other-ref.md#anchor)` link to a heading slug that no longer exists in the target file. The audit's *external* comparison (skill vs upstream docs) stays green even if the *internal* cross-refs broke — `wc -l`, the spot-check, and any compiler will all miss it, because Markdown renders broken anchors as valid links that simply jump nowhere.
 
-Whenever Phase 5 moves a section from one reference to another, splits one ref into two, or renames a section heading, run **every** check below. The classic failure mode is a stale `(./other-ref.md#anchor)` link to a heading slug that no longer exists in the target file.
-
-This phase is **non-negotiable** when any of these happened during Phase 5:
+This step is **non-negotiable** when any of these happened during Phase 5:
 
 - A `##` or `###` heading was deleted, renamed, or moved to a different file
 - A reference file was renamed, split, or created from scratch
 - A reference file was effectively "stubbed" (full content replaced by a short pointer)
-
-### The 5 checks
 
 For each moved/renamed/stubbed section `<X>`:
 
@@ -297,24 +293,20 @@ For each moved/renamed/stubbed section `<X>`:
    ```
    GitHub-flavored markdown slugs are: lowercase, spaces → `-`, drop backticks/punctuation. Example: ``## `Alloy.Collections` API`` → `#alloycollections-api`.
 
-4. **Validate each anchor against the slug list from step 3.** Any link whose anchor is not in the slug list is **broken** — repoint to the new heading, or to a more appropriate ref entirely if the content moved cross-file.
+4. **Validate each anchor against the slug list from sub-step 3.** Any link whose anchor is not in the slug list is **broken** — repoint to the new heading, or to a more appropriate ref entirely if the content moved cross-file.
 
-5. **Verify `SKILL.md`'s quick reference table** lists every current `references/*.md` file, with descriptions that match the file's actual content (not the pre-restructure scope). Cross-check anchors in `SKILL.md` against the same slug list from step 3.
+5. **Verify `SKILL.md`'s quick reference table** lists every current `references/*.md` file, with descriptions that match the file's actual content (not the pre-restructure scope). Cross-check anchors in `SKILL.md` against the same slug list from sub-step 3.
 
-### Output
+Output:
 
 ```markdown
-### Cross-reference validation: <skill-name>
+### Cross-reference verification: <skill-name>
 - Residual content grep: __ refs touched, __ classified as cross-reference, __ classified as duplicate (fixed)
 - Anchors entering modified files: __ total, __ valid, __ broken (fixed: list paths)
 - SKILL.md quick reference table: in sync / drift (description: …)
 ```
 
-A clean output is `0 broken anchors, 0 duplicates, table in sync`. Anything else must be fixed before declaring the audit done — **broken anchors are silently wrong** (Markdown renders the link but it jumps nowhere) and will not surface in `wc -l`, the spot-check, or any compiler.
-
-### Why this phase exists
-
-When Phase 5 splits one ref into two, or replaces a long section with a short pointer to a sibling ref, the audit's *external* comparison (skill vs upstream docs) stays green even if the *internal* cross-refs broke. Past audits closed with anchors like `cli-commands.md#some-old-anchor-form` left behind because the section heading slug had changed during the restructure. Phase 6.5 makes the internal cross-ref pass explicit and unmissable.
+A clean output is `0 broken anchors, 0 duplicates, table in sync`. Anything else must be fixed before declaring the audit done.
 
 ---
 
@@ -323,4 +315,4 @@ When Phase 5 splits one ref into two, or replaces a long section with a short po
 - One commit per audited skill: `audit(<skill>): align refs with titanium-docs <date or commit>`.
 - Mention the upstream commit hash from Phase 0a in the commit body or PR description.
 - If changes are substantial, surface them in the PR description so reviewers see the diff context.
-- If Phase 6.5 fixed any broken anchors, call them out in the commit body so a reviewer can sanity-check the new link targets.
+- If the cross-reference step fixed any broken anchors, call them out in the commit body so a reviewer can sanity-check the new link targets.
