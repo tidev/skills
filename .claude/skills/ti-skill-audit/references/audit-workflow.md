@@ -261,10 +261,58 @@ Verify the updates are correct and complete.
    - `SKILL.md` should be under 500 lines.
    - References should be under 800 lines each.
 
-4. **Verify no orphaned content** — grep for references to removed or renamed sections.
+4. **Verify cross-references and orphaned content** (see subsection below).
+
+### Step 4 — Cross-reference and orphan-content verification
+
+Whenever Phase 5 moves a section from one reference to another, splits one ref into two, or renames a section heading, run **every** check below. The classic failure mode is a stale `(./other-ref.md#anchor)` link to a heading slug that no longer exists in the target file. The audit's *external* comparison (skill vs upstream docs) stays green even if the *internal* cross-refs broke — `wc -l`, the spot-check, and any compiler will all miss it, because Markdown renders broken anchors as valid links that simply jump nowhere.
+
+This step is **non-negotiable** when any of these happened during Phase 5:
+
+- A `##` or `###` heading was deleted, renamed, or moved to a different file
+- A reference file was renamed, split, or created from scratch
+- A reference file was effectively "stubbed" (full content replaced by a short pointer)
+
+For each moved/renamed/stubbed section `<X>`:
+
+1. **Grep for residual content of `<X>` in every other ref of the same skill:**
+   ```bash
+   grep -rln "<command-name-or-distinctive-phrase>" skills/<skill-name>/ \
+     | grep -v "<destination-file>"
+   ```
+   Classify each hit as **cross-reference** (link or one-line mention — keep), **workflow invocation** (uses the API/command but doesn't document it — keep), or **duplicate documentation** (same content lives in two places — fix by deleting the older copy and replacing it with a link to the destination).
+
+2. **List every anchor link that targets the modified file:**
+   ```bash
+   grep -rnE "<modified-file>\.md#[a-z0-9-]+" skills/<skill-name>/
+   ```
+
+3. **List every heading still present in the modified file:**
+   ```bash
+   grep -nE "^(## |### )" skills/<skill-name>/references/<modified-file>.md
+   ```
+   GitHub-flavored markdown slugs are: lowercase, spaces → `-`, drop backticks/punctuation. Example: ``## `Alloy.Collections` API`` → `#alloycollections-api`.
+
+4. **Validate each anchor against the slug list from sub-step 3.** Any link whose anchor is not in the slug list is **broken** — repoint to the new heading, or to a more appropriate ref entirely if the content moved cross-file.
+
+5. **Verify `SKILL.md`'s quick reference table** lists every current `references/*.md` file, with descriptions that match the file's actual content (not the pre-restructure scope). Cross-check anchors in `SKILL.md` against the same slug list from sub-step 3.
+
+Output:
+
+```markdown
+### Cross-reference verification: <skill-name>
+- Residual content grep: __ refs touched, __ classified as cross-reference, __ classified as duplicate (fixed)
+- Anchors entering modified files: __ total, __ valid, __ broken (fixed: list paths)
+- SKILL.md quick reference table: in sync / drift (description: …)
+```
+
+A clean output is `0 broken anchors, 0 duplicates, table in sync`. Anything else must be fixed before declaring the audit done.
+
+---
 
 ### Remind the user
 
 - One commit per audited skill: `audit(<skill>): align refs with titanium-docs <date or commit>`.
 - Mention the upstream commit hash from Phase 0a in the commit body or PR description.
 - If changes are substantial, surface them in the PR description so reviewers see the diff context.
+- If the cross-reference step fixed any broken anchors, call them out in the commit body so a reviewer can sanity-check the new link targets.
