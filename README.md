@@ -10,11 +10,13 @@ Skills here follow the open [agent skills specification](https://agentskills.io/
 | --- | --- |
 | [`ti-create-release`](./skills/ti-create-release/SKILL.md) | Publish a new GitHub release of a Titanium native module — researches the repo's historical tag/name/notes convention, rebuilds from the merged default branch, and uploads the per-platform `.zip` produced in `<platform>/dist/` with one release per platform. |
 | [`ti-module-update`](./skills/ti-module-update/SKILL.md) | Update a Titanium native module's third-party dependency (`.xcframework` in `ios/platform`, `ios/spm.json`, or `android/build.gradle`) and the Titanium SDK itself, verify with `ti build --build-only`, document breaking changes in the README, and open a PR with the last two active maintainers as reviewers. |
-| [`alloy-howtos`](./skills/alloy-howtos/SKILL.md) | Alloy MVC how-tos: CLI usage (`alloy new`, `generate`, `compile`, `extract-i18n`), `alloy.jmk` and `config.json` configuration, conditional views (`if=` in XML/TSS), custom XML tags in `app/lib/`, Backbone.Events for cross-controller communication, and compilation troubleshooting. |
-| [`alloy-guides`](./skills/alloy-guides/SKILL.md) | Alloy MVC framework reference: core concepts, controllers, Backbone.js models / collections / data binding, sync adapters and migrations, XML markup, TSS styling (static and dynamic), widgets, the compile pipeline, and platform-specific TSS modifiers. |
-| [`ti-guides`](./skills/ti-guides/SKILL.md) | Titanium SDK fundamentals: `tiapp.xml` and `timodule.xml` configuration, app distribution (App Store, Google Play, AAB / IPA, certificates, provisioning), Hyperloop native access, Titanium CLI, CommonJS modules, memory and bridge optimization, and TiDev coding standards. |
-| [`ti-api`](./skills/ti-api/SKILL.md) | Titanium API reference: properties, methods, events, constants, and type signatures across `Ti.UI`, `Ti.Android`, `Ti.App`, `Ti.Media`, `Ti.Network`, `Ti.Database`, `Ti.Filesystem`, `Ti.Geolocation`, `Ti.Contacts`, `Ti.Calendar`, `Ti.XML`, and third-party modules (Map, BLE, NFC, Facebook, Identity, CoreMotion, URLSession). |
-| [`ti-howtos`](./skills/ti-howtos/SKILL.md) | Titanium SDK native integration how-tos: location services, Google Maps v2 / Map Kit, push notifications (APNs / FCM), camera and gallery, media APIs, SQLite, HTTPClient, WKWebView, Android Intents, iOS 17 privacy / Keychain / iCloud, WatchKit / Siri, Hyperloop, and CI/CD with Fastlane and Appium. |
+| [`alloy-howtos`](./skills/alloy-howtos/SKILL.md) | Alloy CLI, project configuration, compiler constants, hooks, debugging and localization. |
+| [`alloy-guides`](./skills/alloy-guides/SKILL.md) | Alloy MVC views, TSS, controllers, models and collections, persistence, widgets and themes. |
+| [`ti-guides`](./skills/ti-guides/SKILL.md) | Titanium SDK 14.0.0.GA setup, project configuration, modules, CLI, compatibility, distribution and release notes. |
+| [`ti-api`](./skills/ti-api/SKILL.md) | Titanium SDK 14.0.0.GA API contracts and independently versioned module APIs: properties, methods, events, constants, defaults and platform restrictions. |
+| [`ti-howtos`](./skills/ti-howtos/SKILL.md) | Current official guidance for location, maps, notifications, media, storage, networking, platform conventions and native integrations. |
+
+The five reference skills (`ti-api`, `ti-guides`, `ti-howtos`, `alloy-guides`, `alloy-howtos`) are synchronized from [TiTools](https://github.com/macCesar/titools). Their maintenance and synchronization workflow is described in [MAINTENANCE.md](MAINTENANCE.md).
 
 More skills will land here over time.
 
@@ -26,7 +28,7 @@ Install all skills from this repo into your agent's skills directory in one comm
 npx skills add tidev/skills
 ```
 
-That registers every skill under `skills/` (currently `ti-module-update`, more to come) for your active agent. Once installed, the agent discovers each skill by name — invoke it with the matching slash command, e.g.:
+That registers every skill under `skills/` for your active agent. Once installed, the agent discovers each skill by name — invoke it with the matching slash command, e.g.:
 
 ```
 /ti-module-update

@@ -1,25 +1,52 @@
 # Ti.Network, Ti.Database & Ti.Filesystem API Reference
 
+<!-- TOC-START -->
+## Contents
+
+- [Ti.Database](#tidatabase)
+- [Ti.Database.DB](#tidatabasedb)
+- [Ti.Database.ResultSet](#tidatabaseresultset)
+- [Ti.Filesystem](#tifilesystem)
+- [Ti.Filesystem.File](#tifilesystemfile)
+- [Ti.Filesystem.FileStream](#tifilesystemfilestream)
+- [Ti.Network](#tinetwork)
+- [Ti.Network.BonjourBrowser](#tinetworkbonjourbrowser)
+- [Ti.Network.BonjourService](#tinetworkbonjourservice)
+- [Ti.Network.Cookie](#tinetworkcookie)
+- [Ti.Network.HTTPClient](#tinetworkhttpclient)
+- [Ti.Network.Socket](#tinetworksocket)
+- [Ti.Network.Socket.TCP](#tinetworksockettcp)
+- [Ti.Network.TCPSocket](#tinetworktcpsocket)
+
+<!-- TOC-END -->
+
 ## Ti.Database
+> Full released contract: [Titanium.Database](https://titaniumsdk.com/docs/sdk/14.0.0/Titanium.Database)
+
 > The top-level `Database` module, used for creating and accessing the in-application SQLite database.
 > Extends Ti.Module
 > Platforms: both
 > Type: module
 
-### Constants (4)
+### Constants (9)
 - **FIELD_TYPE_\***: FIELD_TYPE_DOUBLE, FIELD_TYPE_FLOAT, FIELD_TYPE_INT, FIELD_TYPE_STRING
-
+- **Android open flags (14.0.0+)**: CREATE_IF_NECESSARY, NO_LOCALIZED_COLLATORS, ENABLE_WRITE_AHEAD_LOGGING, OPEN_READWRITE, OPEN_READONLY
 
 ### Methods (2)
 | Method | Returns | Platform | Description |
 |--------|---------|----------|-------------|
 | install(path, dbName) | Ti.Database.DB | both | Installs an SQLite database to device's internal storage. |
-| open(dbName) | Ti.Database.DB | both | Opens an SQLite database. |
+| open(dbName, flags?) | Ti.Database.DB | both | Opens an SQLite database; optional numeric flags apply only on Android since 14.0.0. |
 
+The five Android flags are read-only Number constants. `flags` is a bitmask and is ignored outside Android. If omitted, the default is `CREATE_IF_NECESSARY | NO_LOCALIZED_COLLATORS`. An explicit mask replaces that default; it is not merged with it. To open an existing database read-only while keeping locale collators unchanged, pass `Ti.Database.OPEN_READONLY | Ti.Database.NO_LOCALIZED_COLLATORS`. Without `CREATE_IF_NECESSARY`, a missing database throws; writes to an `OPEN_READONLY` database throw too.
+
+`NO_LOCALIZED_COLLATORS` avoids rebuilding the database with the device's locale collators, useful for a shipped database that must not be modified on open. `ENABLE_WRITE_AHEAD_LOGGING` allows concurrent readers and a writer, creates additional `-wal` and `-shm` files, and cannot be combined with `OPEN_READONLY`. Always close the returned database after use.
 
 ---
 
 ## Ti.Database.DB
+> Full released contract: [Titanium.Database.DB](https://titaniumsdk.com/docs/sdk/14.0.0/Titanium.Database.DB)
+
 > The `Database` instance returned by <Titanium.Database.open> or <Titanium.Database.install>.
 > Extends Ti.Proxy
 > Platforms: both
@@ -32,7 +59,6 @@
 | name | String | — | both | The name of the database. |
 | rowsAffected | Number | — | both | The number of rows affected by the last query. |
 
-
 ### Methods (6)
 | Method | Returns | Platform | Description |
 |--------|---------|----------|-------------|
@@ -43,27 +69,22 @@
 | executeAllAsync(queries, callback) | Promise<Array<Titanium.Database.ResultSet>> | both | Asynchronously executes an array of SQL statements against the database and fir… |
 | remove(—) | void | both | Removes the database files for this instance from disk. WARNING: this is a dest… |
 
-
 ---
 
 ## Ti.Database.ResultSet
+> Full released contract: [Titanium.Database.ResultSet](https://titaniumsdk.com/docs/sdk/14.0.0/Titanium.Database.ResultSet)
+
 > The ResultSet instance returned by <Titanium.Database.DB.execute>.
 > Extends Ti.Proxy
 > Platforms: both
 
 A result set represents the results returned by a database query.
 
-The [rowCount](Titanium.Database.ResultSet.rowCount) property identifies the number of
-rows in the result set. The `ResultSet` object maintains an internal record of the 
-current row. As shown in the example, you can use the 
-[next](Titanium.Database.ResultSet.next) method to iterate through the rows in the set.
+The [rowCount](https://titaniumsdk.com/docs/sdk/14.0.0/Titanium.Database.ResultSet) property identifies the number of rows in the result set. The `ResultSet` object maintains an internal record of the current row. As shown in the example, you can use the [next](https://titaniumsdk.com/docs/sdk/14.0.0/Titanium.Database.ResultSet) method to iterate through the rows in the set.
 
-Use the [field](Titanium.Database.ResultSet.field) or
-[fieldByName](Titanium.Database.ResultSet.fieldByName) methods to query the fields for
-the current row.
+Use the [field](https://titaniumsdk.com/docs/sdk/14.0.0/Titanium.Database.ResultSet) or [fieldByName](https://titaniumsdk.com/docs/sdk/14.0.0/Titanium.Database.ResultSet) methods to query the fields for the current row.
 
-On the iOS platform, closing the database also closes the result set, that is,
-you can only access the result set if the database is currently open.
+On the iOS platform, closing the database also closes the result set, that is, you can only access the result set if the database is currently open.
 
 ### Properties (unique: 3/6)
 | Property | Type | Default | Platform | Description |
@@ -71,7 +92,6 @@ you can only access the result set if the database is currently open.
 | fieldCount | Number | — | both | The number of columns in this result set. |
 | rowCount | Number | — | both | The number of rows in this result set. |
 | validRow | Boolean | — | both | Indicates whether the current row is valid. |
-
 
 ### Methods (7)
 | Method | Returns | Platform | Description |
@@ -84,18 +104,17 @@ you can only access the result set if the database is currently open.
 | isValidRow(—) | Boolean | both | Returns whether the current row is valid. |
 | next(—) | Boolean | both | Advances to the next row in the result set and returns `true` if one exists, or… |
 
-
 ---
 
 ## Ti.Filesystem
+> Full released contract: [Titanium.Filesystem](https://titaniumsdk.com/docs/sdk/14.0.0/Titanium.Filesystem)
+
 > The top level filesystem module, used to access files and directories on the device.
 > Extends Ti.Module
 > Platforms: both
 > Type: module
 
-For examples of using the Filesystem APIs, refer to the
-[Filesystem Access and Storage guide](https://titaniumsdk.com/guide/Titanium_SDK/Titanium_SDK_How-tos/Working_with_Local_Data_Sources/Filesystem_Access_and_Storage.html)
-as well as the other Filesystem submodule API documentation.
+For examples of using the Filesystem APIs, refer to the [Filesystem Access and Storage guide](https://titaniumsdk.com/docs/build/data) as well as the other Filesystem submodule API documentation.
 
 ### Properties (unique: 11/21)
 | Property | Type | Default | Platform | Description |
@@ -118,12 +137,11 @@ as well as the other Filesystem submodule API documentation.
 - **IOS_FILE_PROTECTION_COMPLETE_UNTIL_FIRST_USER_\***: IOS_FILE_PROTECTION_COMPLETE_UNTIL_FIRST_USER_AUTHENTICATION
 - **MODE_\***: MODE_APPEND, MODE_READ, MODE_WRITE
 
-
 ### Methods (9)
 | Method | Returns | Platform | Description |
 |--------|---------|----------|-------------|
-| createTempDirectory(—) | Ti.Filesystem.File | both | Creates a temporary directory and returns a [File](Titanium.Filesystem.File) ob… |
-| createTempFile(—) | Ti.Filesystem.File | both | Creates a temporary file and returns a [File](Titanium.Filesystem.File) object … |
+| createTempDirectory(—) | Ti.Filesystem.File | both | Creates a temporary directory and returns a [File](https://titaniumsdk.com/docs/sdk/14.0.0/Titanium.Filesystem.File) ob… |
+| createTempFile(—) | Ti.Filesystem.File | both | Creates a temporary file and returns a [File](https://titaniumsdk.com/docs/sdk/14.0.0/Titanium.Filesystem.File) object … |
 | getFile(path) | Ti.Filesystem.File | both | Returns a `File` object representing the file identified by the path arguments. |
 | getAsset(path) | Ti.Blob | ios | Returns a `Blob` object representing the asset catalog image identified by the … |
 | isExternalStoragePresent(—) | Boolean | both | Returns `true` if the device supports external storage *and* the external stora… |
@@ -132,31 +150,24 @@ as well as the other Filesystem submodule API documentation.
 | openStream(mode, path) | Ti.Filesystem.FileStream | both | Opens file using the <Titanium.IOStream> interface. |
 | directoryForSuite(suiteName) | String | ios | Returns the path to the container directory associated with the specified secur… |
 
-
 ---
 
 ## Ti.Filesystem.File
+> Full released contract: [Titanium.Filesystem.File](https://titaniumsdk.com/docs/sdk/14.0.0/Titanium.Filesystem.File)
+
 > Object representing a path to a file or directory in the device's persistent storage.
 > Extends Ti.Proxy
 > Platforms: both
 
-Use the <Titanium.Filesystem.getFile> method to get a handle to a `File` object,
-which represents a given path.  There does not need to be an existing file or directory
-does not need to exist before `getFile` is called. If the file doesn't exist, and
-the file path identifies a file in a writable directory, writing to the file
-creates the file implicitly.
+Use the <Titanium.Filesystem.getFile> method to get a handle to a `File` object, which represents a given path.  There does not need to be an existing file or directory does not need to exist before `getFile` is called. If the file doesn't exist, and the file path identifies a file in a writable directory, writing to the file creates the file implicitly.
 
 See <Titanium.Filesystem> for constants identifying commonly-used device directories.
 
-Use the [exists](Titanium.Filesystem.File.exists) method to test whether the file exists.
+Use the [exists](https://titaniumsdk.com/docs/sdk/14.0.0/Titanium.Filesystem.File) method to test whether the file exists.
 
-A file object can point to an ordinary file, a directory or a symbolic link.
-Use [createDirectory](Titanium.Filesystem.File.createDirectory) to create a directory.
-Use the [getDirectoryListing](Titanium.Filesystem.File.getDirectoryListing) method to
-retrieve a list of the directory's contents.
+A file object can point to an ordinary file, a directory or a symbolic link. Use [createDirectory](https://titaniumsdk.com/docs/sdk/14.0.0/Titanium.Filesystem.File) to create a directory. Use the [getDirectoryListing](https://titaniumsdk.com/docs/sdk/14.0.0/Titanium.Filesystem.File) method to retrieve a list of the directory's contents.
 
-
-*(See full overview in titanium-docs)*
+Complete overview, setup, examples and version restrictions: [official Titanium.Filesystem.File API](https://titaniumsdk.com/docs/sdk/14.0.0/Titanium.Filesystem.File).
 
 ### Properties (unique: 10/13)
 | Property | Type | Default | Platform | Description |
@@ -171,7 +182,6 @@ retrieve a list of the directory's contents.
 | remoteBackup | Boolean | true | ios | Value indicating whether or not to back up to a cloud service. |
 | symbolicLink | Boolean | — | both | `true` if the file identified by this object is a symbolic link. |
 | writable | Boolean | — | both | `true` if the file identified by this object is writable. |
-
 
 ### Methods (25)
 | Method | Returns | Platform | Description |
@@ -202,24 +212,25 @@ retrieve a list of the directory's contents.
 | spaceAvailable(—) | Number | both | Returns the amount of free space available on the device where the file identif… |
 | write(data, append) | Boolean | both | Writes the specified data to the file identified by this file object. |
 
-
 ---
 
 ## Ti.Filesystem.FileStream
+> Full released contract: [Titanium.Filesystem.FileStream](https://titaniumsdk.com/docs/sdk/14.0.0/Titanium.Filesystem.FileStream)
+
 > Wrapper around `Titanium.Filesystem.File` that implements the `Titanium.IOStream` interface
 > Extends Ti.IOStream
 > Platforms: both
-
 
 ### Methods (1)
 | Method | Returns | Platform | Description |
 |--------|---------|----------|-------------|
 | close(—) | void | both | closes file stream, exception is thrown on error |
 
-
 ---
 
 ## Ti.Network
+> Full released contract: [Titanium.Network](https://titaniumsdk.com/docs/sdk/14.0.0/Titanium.Network)
+
 > The top level network module.
 > Extends Ti.Module
 > Platforms: both
@@ -229,19 +240,15 @@ The `Network` module is used to access networking related functionality.
 
 For TCP sockets, see <Titanium.Network.Socket.TCP>.
 
-The legacy <Titanium.Network.TCPSocket> object is still required
-by the [BonjourBrowser](Titanium.Network.BonjourBrowser) and
-[BonjourService](Titanium.Network.BonjourService) objects.
+The legacy <Titanium.Network.TCPSocket> object is still required by the [BonjourBrowser](https://titaniumsdk.com/docs/sdk/14.0.0/Titanium.Network.BonjourBrowser) and [BonjourService](https://titaniumsdk.com/docs/sdk/14.0.0/Titanium.Network.BonjourService) objects.
 
 For all other socket needs, use <Titanium.Network.Socket.TCP>.
 
 ### App Transport Security
 
-Starting with iOS 9, Apple introduced new security and compatibility guidelines for networking
-and connectivity, which include:
+Starting with iOS 9, Apple introduced new security and compatibility guidelines for networking and connectivity, which include:
 
-
-*(See full overview in titanium-docs)*
+Complete overview, setup, examples and version restrictions: [official Titanium.Network API](https://titaniumsdk.com/docs/sdk/14.0.0/Titanium.Network).
 
 ### Properties (unique: 7/24)
 | Property | Type | Default | Platform | Description |
@@ -259,7 +266,6 @@ and connectivity, which include:
 - **NOTIFICATION_TYPE_\***: NOTIFICATION_TYPE_ALERT, NOTIFICATION_TYPE_BADGE, NOTIFICATION_TYPE_SOUND, NOTIFICATION_TYPE_NEWSSTAND
 - **PROGRESS_\***: PROGRESS_UNKNOWN
 - **TLS_VERSION_1_\***: TLS_VERSION_1_0, TLS_VERSION_1_1, TLS_VERSION_1_2, TLS_VERSION_1_3
-
 
 ### Methods (19)
 | Method | Returns | Platform | Description |
@@ -292,7 +298,7 @@ and connectivity, which include:
 ### Related Types
 
 #### PushNotificationConfig
-> Simple object for specifying push notification options to [registerForPushNotifications](Titanium.Network.registerForPushNotifications).
+> Simple object for specifying push notification options to [registerForPushNotifications](https://titaniumsdk.com/docs/sdk/14.0.0/Titanium.Network).
 
 | Property | Type | Description |
 |----------|------|-------------|
@@ -304,27 +310,19 @@ and connectivity, which include:
 ---
 
 ## Ti.Network.BonjourBrowser
+> Full released contract: [Titanium.Network.BonjourBrowser](https://titaniumsdk.com/docs/sdk/14.0.0/Titanium.Network.BonjourBrowser)
+
 > A browser for the discovery and retrieval of Bonjour services available on the network.
 > Extends Ti.Proxy
 > Platforms: ios
 
 Use the <Titanium.Network.createBonjourBrowser> method to create a `BonjourBrowser` instance.
 
-If your application publishes Bonjour services itself, that service will be discovered 
-by the browser if necessary; be prepared to perform a check if you do not want to list 
-local services as available.  Bonjour service browsing is an asynchronous operation, 
-meaning that you should be extremely careful when caching values from the `services` 
-property returned by the `updatedservices` event.  In particular, if you maintain a 
-local copy of available services and a user tries to connect to one, you should be prepared 
-to handle failures gracefully; the next `updatedservices` event should provide the new 
-services list, but you should not rely on it being delivered before user input.  When 
-a window which uses Bonjour browsing is closed, if you do not want to continue searching, 
-you must call the stop() method.
+If your application publishes Bonjour services itself, that service will be discovered by the browser if necessary; be prepared to perform a check if you do not want to list local services as available.  Bonjour service browsing is an asynchronous operation, meaning that you should be extremely careful when caching values from the `services` property returned by the `updatedservices` event.  In particular, if you maintain a local copy of available services and a user tries to connect to one, you should be prepared to handle failures gracefully; the next `updatedservices` event should provide the new services list, but you should not rely on it being delivered before user input.  When a window which uses Bonjour browsing is closed, if you do not want to continue searching, you must call the stop() method.
 
 In iOS 14.0+, to browse services add key `NSLocalNetworkUsageDescription` and `NSBonjourServices` to the `ios plist` section of the tiapp.xml file.
 
-
-*(See full overview in titanium-docs)*
+Complete overview, setup, examples and version restrictions: [official Titanium.Network.BonjourBrowser API](https://titaniumsdk.com/docs/sdk/14.0.0/Titanium.Network.BonjourBrowser).
 
 ### Properties (unique: 3/5)
 | Property | Type | Default | Platform | Description |
@@ -332,7 +330,6 @@ In iOS 14.0+, to browse services add key `NSLocalNetworkUsageDescription` and `N
 | domain | String | local. | ios | The domain the browser is searching in |
 | isSearching | Boolean | false | ios | Whether or not the browser is currently searching |
 | serviceType | String | — | ios | The type of the service the browser searches for |
-
 
 ### Methods (2)
 | Method | Returns | Platform | Description |
@@ -348,27 +345,21 @@ In iOS 14.0+, to browse services add key `NSLocalNetworkUsageDescription` and `N
 ---
 
 ## Ti.Network.BonjourService
+> Full released contract: [Titanium.Network.BonjourService](https://titaniumsdk.com/docs/sdk/14.0.0/Titanium.Network.BonjourService)
+
 > Describes a service on the network which is published by Bonjour.
 > Extends Ti.Proxy
 > Platforms: ios
 
-You can obtain a `BonjourService` instance by calling <Titanium.Network.createBonjourService> 
-or from the `service` list from a [BonjourBrowser](Titanium.Network.BonjourBrowser)  
-`updatedservices` event.   
+You can obtain a `BonjourService` instance by calling <Titanium.Network.createBonjourService> or from the `service` list from a [BonjourBrowser](https://titaniumsdk.com/docs/sdk/14.0.0/Titanium.Network.BonjourBrowser) `updatedservices` event.
 
-You can only publish Bonjour services attached to a socket which is currently listening; 
-you cannot publish a service for a remotely connected socket.  If you stop the Bonjour 
-service and wish to close the socket it uses, it is strongly recommended that you stop 
-the service first.  When a window which publishes a Bonjour service is closed, you must 
-stop the service if the associated socket is also to be closed, or if it is no longer 
-necessary to publish.  Bonjour service resolution and publishing is asynchronous.
+You can only publish Bonjour services attached to a socket which is currently listening; you cannot publish a service for a remotely connected socket.  If you stop the Bonjour service and wish to close the socket it uses, it is strongly recommended that you stop the service first.  When a window which publishes a Bonjour service is closed, you must stop the service if the associated socket is also to be closed, or if it is no longer necessary to publish.  Bonjour service resolution and publishing is asynchronous.
 
 In iOS 14.0+, to publish service add key `NSLocalNetworkUsageDescription` and `NSBonjourServices` in tiapp.xml file.
 
 Example:
 
-
-*(See full overview in titanium-docs)*
+Complete overview, setup, examples and version restrictions: [official Titanium.Network.BonjourService API](https://titaniumsdk.com/docs/sdk/14.0.0/Titanium.Network.BonjourService).
 
 ### Properties (unique: 5/7)
 | Property | Type | Default | Platform | Description |
@@ -378,7 +369,6 @@ Example:
 | name | String | — | ios | the name of the service |
 | socket | Ti.Network.Socket.TCP | — | ios | the TCPSocket object that is used to connect to the service |
 | type | String | — | ios | the type of the service |
-
 
 ### Methods (3)
 | Method | Returns | Platform | Description |
@@ -397,27 +387,15 @@ Example:
 ---
 
 ## Ti.Network.Cookie
+> Full released contract: [Titanium.Network.Cookie](https://titaniumsdk.com/docs/sdk/14.0.0/Titanium.Network.Cookie)
+
 > Cookie object used to manage the system cookie store and HTTP client cookie store.
 > Extends Ti.Proxy
 > Platforms: both
 
-Use <Titanium.Network.createCookie> to create a new `Cookie` object.
-The following is an example of how to setup and read a cookie on a web view:
+Create a cookie with `Ti.Network.createCookie()`. For the complete cookie-store/WebView example and platform behavior, use the released contract linked below.
 
-``` js
-if (!Date.prototype.toISOString) {
-  (function() {
-    function pad(number) {
-      const r = String(number);
-      if (r.length === 1) {
-        r = '0' + r;
-      }
-      return r;
-    }
-
-    Date.prototype.toISOString = function() {
-
-*(See full overview in titanium-docs)*
+Complete overview, setup, examples and version restrictions: [official Titanium.Network.Cookie API](https://titaniumsdk.com/docs/sdk/14.0.0/Titanium.Network.Cookie).
 
 ### Properties (unique: 11/14)
 | Property | Type | Default | Platform | Description |
@@ -434,24 +412,23 @@ if (!Date.prototype.toISOString) {
 | value | String | — | both | The value of the cookie. |
 | version | Number | — | both | The version of the cookie specification to which this cookie conforms. |
 
-
 ### Methods (1)
 | Method | Returns | Platform | Description |
 |--------|---------|----------|-------------|
 | isValid(—) | Boolean | both | Returns true if the cookie is valid. |
 
-
 ---
 
 ## Ti.Network.HTTPClient
+> Full released contract: [Titanium.Network.HTTPClient](https://titaniumsdk.com/docs/sdk/14.0.0/Titanium.Network.HTTPClient)
+
 > HTTP client object that (mostly) implements the XMLHttpRequest specification.
 > Extends Ti.Proxy
 > Platforms: both
 
 Use <Titanium.Network.createHTTPClient> to create a new `HTTPClient` object.
 
-An `HTTPClient` object is intended to be used for a single request. It may be
-possible to re-use an `HTTPClient` object, but this use case is not tested.
+An `HTTPClient` object is intended to be used for a single request. It may be possible to re-use an `HTTPClient` object, but this use case is not tested.
 
 There are three steps in making a typical HTTP request:
 
@@ -459,12 +436,11 @@ There are three steps in making a typical HTTP request:
 * Opening the `HTTPClient` object.
 * Sending the request.
 
-Before opening the request, you must define one or more callbacks to handle
-the HTTP response, as well as errors, progress updates, and other conditions.
+Before opening the request, you must define one or more callbacks to handle the HTTP response, as well as errors, progress updates, and other conditions.
 
 The `HTTPClient` callbacks operate somewhat differently from other
 
-*(See full overview in titanium-docs)*
+Complete overview, setup, examples and version restrictions: [official Titanium.Network.HTTPClient API](https://titaniumsdk.com/docs/sdk/14.0.0/Titanium.Network.HTTPClient).
 
 ### Properties (unique: 31/39)
 | Property | Type | Default | Platform | Description |
@@ -501,10 +477,11 @@ The `HTTPClient` callbacks operate somewhat differently from other
 | tlsVersion | Number | undefined, behaves as `Ti.Network.TLS_VERSION_1_2`. | android | Sets the TLS version to use for handshakes. |
 | cache | Boolean | false | ios | Determines whether HTTP responses are cached. |
 
+Set `domain`, `username`, and `password` before `open()` when using NTLM domain credentials on iOS. iOS supports NTLM natively; Android supports Basic authentication only. `domain` remains a String with an undefined default.
+
 ### Constants (5)
 - **HEADERS_\***: HEADERS_RECEIVED
 - **OTHER_\***: DONE, LOADING, OPENED, UNSENT
-
 
 ### Methods (8)
 | Method | Returns | Platform | Description |
@@ -518,7 +495,6 @@ The `HTTPClient` callbacks operate somewhat differently from other
 | setRequestHeader(name, value) | void | both | Sets the value for the specified request header. Must be called after `open` bu… |
 | setTimeout(timeout) | void | both | Sets the request timeout. |
 
-
 ### Related Types
 
 #### Dictionary
@@ -530,6 +506,8 @@ The `HTTPClient` callbacks operate somewhat differently from other
 ---
 
 ## Ti.Network.Socket
+> Full released contract: [Titanium.Network.Socket](https://titaniumsdk.com/docs/sdk/14.0.0/Titanium.Network.Socket)
+
 > Socket module, used for creating sockets.
 > Extends Ti.Module
 > Platforms: both
@@ -538,37 +516,29 @@ The `HTTPClient` callbacks operate somewhat differently from other
 ### Constants (5)
 - **OTHER_\***: INITIALIZED, CONNECTED, LISTENING, CLOSED, ERROR
 
-
 ### Methods (1)
 | Method | Returns | Platform | Description |
 |--------|---------|----------|-------------|
 | createTCP(params) | Ti.Network.Socket.TCP | both | Returns a new TCP socket object. |
 
-
 ---
 
 ## Ti.Network.Socket.TCP
+> Full released contract: [Titanium.Network.Socket.TCP](https://titaniumsdk.com/docs/sdk/14.0.0/Titanium.Network.Socket.TCP)
+
 > TCP socket that implements the `Titanium.IOStream` interface.
 > Extends Ti.IOStream
 > Platforms: both
 
-Most socket operations are asynchronous. When you create a socket, you can define
-callback functions to receive the results of API calls, as well as to handle incoming
-data.
+Most socket operations are asynchronous. When you create a socket, you can define callback functions to receive the results of API calls, as well as to handle incoming data.
 
-For example, for a client-side socket, you define
-[connected](Titanium.Network.Socket.TCP.connected) and
-[error](Titanium.Network.Socket.TCP.error) callback functions.
+For example, for a client-side socket, you define [connected](https://titaniumsdk.com/docs/sdk/14.0.0/Titanium.Network.Socket.TCP) and [error](https://titaniumsdk.com/docs/sdk/14.0.0/Titanium.Network.Socket.TCP) callback functions.
 
-To connect to a remote host, call the socket's
-[connect](Titanium.Network.Socket.TCP.connect) method. If the socket connects
-successfully, your `connected` callback is invoked, and you can send and receive data
-on the socket. If the socket connection fails, your `error` callback is invoked.
+To connect to a remote host, call the socket's [connect](https://titaniumsdk.com/docs/sdk/14.0.0/Titanium.Network.Socket.TCP) method. If the socket connects successfully, your `connected` callback is invoked, and you can send and receive data on the socket. If the socket connection fails, your `error` callback is invoked.
 
-After a socket is connected, you can access it like any other <Titanium.IOStream>.
-Note that the socket's `read` and `write` methods may block, so in most cases
+After a socket is connected, you can access it like any other <Titanium.IOStream>. Note that the socket's `read` and `write` methods may block, so in most cases
 
-*(See full overview in titanium-docs)*
+Complete overview, setup, examples and version restrictions: [official Titanium.Network.Socket.TCP API](https://titaniumsdk.com/docs/sdk/14.0.0/Titanium.Network.Socket.TCP).
 
 ### Properties (unique: 9/12)
 | Property | Type | Default | Platform | Description |
@@ -583,20 +553,18 @@ Note that the socket's `read` and `write` methods may block, so in most cases
 | accepted | Callback<AcceptedCallbackArgs> | — | both | Callback to be fired when a listener accepts a connection. |
 | state | Number | — | both | Current state of the socket. |
 
-
 ### Methods (4)
 | Method | Returns | Platform | Description |
 |--------|---------|----------|-------------|
 | close(—) | void | both | Closes a socket. |
 | connect(—) | void | both | Attempts to connect the socket to its host/port. |
 | listen(—) | void | both | Attempts to start listening on the socket's host/port. |
-| accept(options) | void | both | Tells a [LISTENING](Titanium.Network.Socket.LISTENING) socket to accept a conne… |
-
+| accept(options) | void | both | Tells a [LISTENING](https://titaniumsdk.com/docs/sdk/14.0.0/Titanium.Network.Socket) socket to accept a conne… |
 
 ### Related Types
 
 #### AcceptDict
-> Options object for the [accept](Titanium.Network.Socket.TCP.accept) method.
+> Options object for the [accept](https://titaniumsdk.com/docs/sdk/14.0.0/Titanium.Network.Socket.TCP) method.
 
 | Property | Type | Description |
 |----------|------|-------------|
@@ -606,21 +574,22 @@ Note that the socket's `read` and `write` methods may block, so in most cases
 ---
 
 ## Ti.Network.TCPSocket
+> Full released contract: [Titanium.Network.TCPSocket](https://titaniumsdk.com/docs/sdk/14.0.0/Titanium.Network.TCPSocket)
+
 > The TCPSocket instance returned from <Titanium.Network.createTCPSocket>.  This object represents a socket which either listens locally on the device for connections, or connects to a remote machine.
 > Extends Ti.Proxy
 > Platforms: ios
 
-Sockets are nontrivial; it is recommended that anyone using them be familiar with the basics of BSD sockets.  All sockets use TCP connections, and are asynchronous for read operations, so your program should be ready to receive 'read' events at any point.  Socket references cannot be transferred to socket objects, and vice-versa - socket references are an internal mechanism which is used only to determine which sockets to send data to and read data from.  For listening sockets, it is highly recommended that you use the <Titanium.Network.INADDR_ANY> constant as the host name.  If a window containing a socket is closed, the socket MUST be closed also unless you intend to continue to receive data, otherwise the socket will consume resources (and potentially cause conflicts with opening the window again, if a listener) until the program is restarted.  Be aware of the differences between the listen() and connect() functions; attempting to use one when you mean the other may result in errors, unpredictable behavior, or both.
+Sockets are nontrivial; it is recommended that anyone using them be familiar with the basics of BSD sockets.  All sockets use TCP connections, and are asynchronous for read operations, so your program should be ready to receive 'read' events at any point.  Socket references cannot be transferred to socket objects, and vice-versa - socket references are an internal mechanism which is used only to determine which sockets to send data to and read data from.  For listening sockets, it is highly recommended that you use the string `"INADDR_ANY"` as the host name.  If a window containing a socket is closed, the socket MUST be closed also unless you intend to continue to receive data, otherwise the socket will consume resources (and potentially cause conflicts with opening the window again, if a listener) until the program is restarted.  Be aware of the differences between the listen() and connect() functions; attempting to use one when you mean the other may result in errors, unpredictable behavior, or both.
 
 ### Properties (unique: 5/7)
 | Property | Type | Default | Platform | Description |
 |----------|------|---------|----------|-------------|
-| hostName | String | — | ios | the host name to connect to. Must be <Titanium.Network.INADDR_ANY> or an identi… |
+| hostName | String | — | ios | Host name to connect to; use `"INADDR_ANY"` or a local-device identifier to listen. |
 | isValid | Boolean | — | ios | whether or not the socket is valid |
 | mode | Number | — | ios | the socket's mode |
 | port | Number | — | ios | the port to connect/listen on |
 | stripTerminator | Boolean | — | ios | strip terminating null character when sending string data; default is false |
-
 
 ### Methods (4)
 | Method | Returns | Platform | Description |

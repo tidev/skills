@@ -1,6 +1,29 @@
 # Ti.Geolocation, Ti.Contacts, Ti.Calendar & Ti.WatchSession API Reference
 
+<!-- TOC-START -->
+## Contents
+
+- [Ti.Calendar](#ticalendar)
+- [Ti.Calendar.Alert](#ticalendaralert)
+- [Ti.Calendar.Attendee](#ticalendarattendee)
+- [Ti.Calendar.Calendar](#ticalendarcalendar)
+- [Ti.Calendar.Event](#ticalendarevent)
+- [Ti.Calendar.RecurrenceRule](#ticalendarrecurrencerule)
+- [Ti.Calendar.Reminder](#ticalendarreminder)
+- [Ti.Contacts](#ticontacts)
+- [Ti.Contacts.Group](#ticontactsgroup)
+- [Ti.Contacts.Person](#ticontactsperson)
+- [Ti.Geolocation](#tigeolocation)
+- [Ti.Geolocation.Android](#tigeolocationandroid)
+- [Ti.Geolocation.Android.LocationProvider](#tigeolocationandroidlocationprovider)
+- [Ti.Geolocation.Android.LocationRule](#tigeolocationandroidlocationrule)
+- [Ti.WatchSession](#tiwatchsession)
+
+<!-- TOC-END -->
+
 ## Ti.Calendar
+> Full released contract: [Titanium.Calendar](https://titaniumsdk.com/docs/sdk/14.0.0/Titanium.Calendar)
+
 > The Calendar module provides an API for accessing the native calendar functionality.
 > Extends Ti.Module
 > Platforms: both
@@ -11,10 +34,8 @@ Modifying or deleting existing events and creating recurring events are only sup
 
 ### Android
 On Android, calendar permissions must be explicitly configured in `tiapp.xml` in order to access the
-calendar and you have to use [requestCalendarPermissions](Titanium.Calendar.requestCalendarPermissions)
+calendar and you have to use [requestCalendarPermissions](https://titaniumsdk.com/docs/sdk/14.0.0/Titanium.Calendar)
 to request runtime permissions.
-
-``` xml
 
 ### Properties (unique: 6/72)
 | Property | Type | Default | Platform | Description |
@@ -43,7 +64,6 @@ to request runtime permissions.
 - **STATUS_\***: STATUS_NONE, STATUS_CANCELED, STATUS_CONFIRMED, STATUS_TENTATIVE
 - **VISIBILITY_\***: VISIBILITY_CONFIDENTIAL, VISIBILITY_DEFAULT, VISIBILITY_PRIVATE, VISIBILITY_PUBLIC
 
-
 ### Methods (3)
 | Method | Returns | Platform | Description |
 |--------|---------|----------|-------------|
@@ -59,6 +79,8 @@ to request runtime permissions.
 ---
 
 ## Ti.Calendar.Alert
+> Full released contract: [Titanium.Calendar.Alert](https://titaniumsdk.com/docs/sdk/14.0.0/Titanium.Calendar.Alert)
+
 > An object that represents a single alert for an event in an calendar.
 > Extends Ti.Proxy
 > Platforms: both
@@ -76,34 +98,35 @@ to request runtime permissions.
 | minutes | Number | — | android | Reminder notice period in minutes, that determines how long prior to the event … |
 | state | Number | — | android | The current state of the alert. |
 
-
-
-
 ---
 
 ## Ti.Calendar.Attendee
+> Full released contract: [Titanium.Calendar.Attendee](https://titaniumsdk.com/docs/sdk/14.0.0/Titanium.Calendar.Attendee)
+
 > An object that represents a single attendee of an event.
 > Extends Ti.Proxy
 > Platforms: ios
 
 The API supports retrieving information about the attendee of an event.
 
-### Properties (unique: 6/8)
+The type declares `platforms: [iphone, ipad, macos]`, but four of its properties declare Android as well. Read the per-property column, not the type header.
+
+### Properties (unique: 7/8)
 | Property | Type | Default | Platform | Description |
 |----------|------|---------|----------|-------------|
 | isOrganizer | Boolean | — | ios | Indicates whether this attendee is the event organizer. |
-| name | String | — | ios | The attendee name. |
-| email | String | — | ios | The attendee email. |
+| name | String | — | both | The attendee name. |
+| email | String | — | both | The attendee email. |
+| relationship | Number | — | android | The relationship of the attendee to the user. Read-only. Values come from the `Ti.Calendar.RELATIONSHIP_*` constants. Since 6.2.0. |
 | role | Number | — | ios | The role of the attendee. |
-| type | Number | — | ios | The type of the attendee. |
-| status | Number | — | ios | The status of the attendee. |
-
-
-
+| type | Number | — | both | The type of the attendee. |
+| status | Number | — | both | The status of the attendee. |
 
 ---
 
 ## Ti.Calendar.Calendar
+> Full released contract: [Titanium.Calendar.Calendar](https://titaniumsdk.com/docs/sdk/14.0.0/Titanium.Calendar.Calendar)
+
 > An object that represents a single calendar.
 > Extends Ti.Proxy
 > Platforms: both
@@ -119,7 +142,6 @@ The API supports retrieving information about the attendee of an event.
 | sourceType | Number | — | ios | Displays the source type. |
 | sourceIdentifier | String | — | ios | Displays the source identifier. |
 
-
 ### Methods (9)
 | Method | Returns | Platform | Description |
 |--------|---------|----------|-------------|
@@ -133,10 +155,11 @@ The API supports retrieving information about the attendee of an event.
 | getEventsInMonth(year, month) | Array<Titanium.Calendar.Event> | both | Gets events that occur during a specified month. |
 | getEventsInYear(year) | Array<Titanium.Calendar.Event> | both | Gets all events that occur during a specified year. |
 
-
 ---
 
 ## Ti.Calendar.Event
+> Full released contract: [Titanium.Calendar.Event](https://titaniumsdk.com/docs/sdk/14.0.0/Titanium.Calendar.Event)
+
 > An object that represents a single event in a calendar.
 > Extends Ti.Proxy
 > Platforms: both
@@ -169,7 +192,6 @@ See <Titanium.Calendar> for examples of retrieving event information and creatin
 | visibility | Number | — | android | Visibility of this event. |
 | attendees | Array<Titanium.Calendar.Attendee> | — | ios | The list of event attendees. This list will be empty if the event has no attend… |
 
-
 ### Methods (10)
 | Method | Returns | Platform | Description |
 |--------|---------|----------|-------------|
@@ -184,7 +206,6 @@ See <Titanium.Calendar> for examples of retrieving event information and creatin
 | addRecurrenceRule(rule) | void | ios | Adds a recurrence rule to the recurrence rule array. |
 | removeRecurrenceRule(rule) | void | ios | Removes a recurrence rule to the recurrence rule array. |
 
-
 ### Related Types
 
 #### Dictionary
@@ -193,15 +214,17 @@ See <Titanium.Calendar> for examples of retrieving event information and creatin
 ---
 
 ## Ti.Calendar.RecurrenceRule
+> Full released contract: [Titanium.Calendar.RecurrenceRule](https://titaniumsdk.com/docs/sdk/14.0.0/Titanium.Calendar.RecurrenceRule)
+
 > An object that is used to describe the recurrence pattern for a recurring event.
 > Extends Ti.Proxy
 > Platforms: both
 
 On Android there is no option to have multiple recurrence rules set for the same event.
-Android always uses only the first element in the array passed to [recurrenceRules](Titanium.Calendar.Event.recurrenceRules).
+Android always uses only the first element in the array passed to [recurrenceRules](https://titaniumsdk.com/docs/sdk/14.0.0/Titanium.Calendar.Event).
 
-In case of having [daysOfTheWeek](Titanium.Calendar.RecurrenceRule.daysOfTheWeek) and [daysOfTheMonth](Titanium.Calendar.RecurrenceRule.daysOfTheWeek)
-for an event with a recurrence rule of type [RECURRENCEFREQUENCY_MONTHLY](Titanium.Calendar.RECURRENCEFREQUENCY_MONTHLY) only
+In case of having [daysOfTheWeek](https://titaniumsdk.com/docs/sdk/14.0.0/Titanium.Calendar.RecurrenceRule) and [daysOfTheMonth](https://titaniumsdk.com/docs/sdk/14.0.0/Titanium.Calendar.RecurrenceRule)
+for an event with a recurrence rule of type [RECURRENCEFREQUENCY_MONTHLY](https://titaniumsdk.com/docs/sdk/14.0.0/Titanium.Calendar) only
 [daysOfTheWeek] will be used.
 
 ### Properties (unique: 10/13)
@@ -218,9 +241,6 @@ for an event with a recurrence rule of type [RECURRENCEFREQUENCY_MONTHLY](Titani
 | setPositions | Array<Number> | — | ios | An array of ordinal numbers that filters which recurrences to include in the re… |
 | end | recurrenceEndDictionary | — | both | End of a recurrence rule. |
 
-
-
-
 ### Related Types
 
 #### recurrenceEndDictionary
@@ -234,6 +254,8 @@ for an event with a recurrence rule of type [RECURRENCEFREQUENCY_MONTHLY](Titani
 ---
 
 ## Ti.Calendar.Reminder
+> Full released contract: [Titanium.Calendar.Reminder](https://titaniumsdk.com/docs/sdk/14.0.0/Titanium.Calendar.Reminder)
+
 > An object that represents a single reminder for an event in a calendar.
 > Extends Ti.Proxy
 > Platforms: android
@@ -251,12 +273,11 @@ reminders for events.
 | method | Number | — | android | Method by which this reminder will be delivered. |
 | minutes | Number | — | android | Reminder notice period in minutes, that determines how long prior to the event … |
 
-
-
-
 ---
 
 ## Ti.Contacts
+> Full released contract: [Titanium.Contacts](https://titaniumsdk.com/docs/sdk/14.0.0/Titanium.Contacts)
+
 > The top-level Contacts module, used for accessing and modifying the system contacts address book.
 > Extends Ti.Module
 > Platforms: both
@@ -271,14 +292,13 @@ On iOS, the contacts database may be modified by an external application, causin
 not guaranteed to remain the same, so updating an object when it is out of sync may have
 unpredictable results.
 
-To avoid this, listen for the [reload](Titanium.Contacts.reload) event. When you receive a
+To avoid this, listen for the [reload](https://titaniumsdk.com/docs/sdk/14.0.0/Titanium.Contacts) event. When you receive a
 `reload` event, you should assume that any existing `Person` or `Group` objects are invalid and
 reload them from the `Contacts` module before modifying them.
 
 See the examples for a sample use of the `reload` event.
 
-
-*(See full overview in titanium-docs)*
+Complete overview, setup, examples and version restrictions: [official Titanium.Contacts API](https://titaniumsdk.com/docs/sdk/14.0.0/Titanium.Contacts).
 
 ### Properties (unique: 2/12)
 | Property | Type | Default | Platform | Description |
@@ -291,7 +311,6 @@ See the examples for a sample use of the `reload` event.
 - **CONTACTS_KIND_\***: CONTACTS_KIND_ORGANIZATION, CONTACTS_KIND_PERSON
 - **CONTACTS_SORT_FIRST_\***: CONTACTS_SORT_FIRST_NAME
 - **CONTACTS_SORT_LAST_\***: CONTACTS_SORT_LAST_NAME
-
 
 ### Methods (13)
 | Method | Returns | Platform | Description |
@@ -331,6 +350,8 @@ See the examples for a sample use of the `reload` event.
 ---
 
 ## Ti.Contacts.Group
+> Full released contract: [Titanium.Contacts.Group](https://titaniumsdk.com/docs/sdk/14.0.0/Titanium.Contacts.Group)
+
 > An object which represents a group in the system contacts address book.
 > Extends Ti.Proxy
 > Platforms: ios
@@ -345,7 +366,6 @@ These APIs are unavailable on macOS if the app is built on a version of Xcode < 
 | name | String | — | ios | Name of this group. |
 | identifier | String | — | ios | Identifier of the group. |
 
-
 ### Methods (4)
 | Method | Returns | Platform | Description |
 |--------|---------|----------|-------------|
@@ -354,10 +374,11 @@ These APIs are unavailable on macOS if the app is built on a version of Xcode < 
 | remove(person) | void | ios | Removes a person from this group. For >= iOS 9, it is not required to call <Tit… |
 | sortedMembers(sortBy) | Array<Titanium.Contacts.Person> | ios | Gets people that are members of this group, sorted in the specified order. |
 
-
 ---
 
 ## Ti.Contacts.Person
+> Full released contract: [Titanium.Contacts.Person](https://titaniumsdk.com/docs/sdk/14.0.0/Titanium.Contacts.Person)
+
 > An object that represents a contact record for a person or organization in the system contacts  address book.
 > Extends Ti.Proxy
 > Platforms: both
@@ -378,7 +399,7 @@ Support for adding and modifying properties is currently supported on iOS and An
 
 ### Keys as Address Book UI Labels
 
-*(See full overview in titanium-docs)*
+Complete overview, setup, examples and version restrictions: [official Titanium.Contacts.Person API](https://titaniumsdk.com/docs/sdk/14.0.0/Titanium.Contacts.Person).
 
 ### Properties (unique: 29/32)
 | Property | Type | Default | Platform | Description |
@@ -413,9 +434,6 @@ Support for adding and modifying properties is currently supported on iOS and An
 | suffix | String | — | both | Suffix for the person. Single value. |
 | url | Dictionary | — | both | URLs of webpages associated with the person. Multi-value. |
 
-
-
-
 ### Related Types
 
 #### Dictionary
@@ -424,6 +442,8 @@ Support for adding and modifying properties is currently supported on iOS and An
 ---
 
 ## Ti.Geolocation
+> Full released contract: [Titanium.Geolocation](https://titaniumsdk.com/docs/sdk/14.0.0/Titanium.Geolocation)
+
 > The top level Geolocation module. The Geolocation module is used for accessing device location based information.
 > Extends Ti.Module
 > Platforms: both
@@ -444,8 +464,7 @@ your application.
 The location services systems of the underlying platforms are very different, so there
 are significant implementation differences between the platforms.
 
-
-*(See full overview in titanium-docs)*
+Complete overview, setup, examples and version restrictions: [official Titanium.Geolocation API](https://titaniumsdk.com/docs/sdk/14.0.0/Titanium.Geolocation).
 
 ### Properties (unique: 15/46)
 | Property | Type | Default | Platform | Description |
@@ -483,17 +502,18 @@ are significant implementation differences between the platforms.
 - **ERROR_LOCATION_\***: ERROR_LOCATION_UNKNOWN
 - **ERROR_REGION_MONITORING_\***: ERROR_REGION_MONITORING_DELAYED, ERROR_REGION_MONITORING_DENIED, ERROR_REGION_MONITORING_FAILURE
 
-
 ### Methods (7)
 | Method | Returns | Platform | Description |
 |--------|---------|----------|-------------|
 | forwardGeocoder(address, callback) | Promise<ForwardGeocodeResponse> | both | Resolves an address to a location. |
 | getCurrentHeading(callback) | Promise<HeadingResponse> | both | Retrieves the current compass heading. |
-| getCurrentPosition(callback) | Promise<LocationResults> | both | Retrieves the last known location from the device. |
+| getCurrentPosition(callback?) | Promise<LocationResults> | both | Retrieves the current location from the device. |
 | hasLocationPermissions(authorizationType) | Boolean | both | Returns `true` if the app has location access. |
 | requestLocationPermissions(authorizationType, callback) | Promise<LocationAuthorizationResponse> | both | Requests for location access. |
 | requestTemporaryFullAccuracyAuthorization(purposeKey, callback) | void | ios | Requests the user's permission to temporarily use location services with full a… |
 | reverseGeocoder(latitude, longitude, callback) | Promise<ReverseGeocodeResponse> | both | Tries to resolve a location to an address. |
+
+On Android in SDK 14.0.0, `getCurrentPosition()` immediately returns a cached location less than 30 seconds old. Otherwise it requests one fresh fix, using Google Play Services' fused provider when available or the platform location manager, with priority selected by `Ti.Geolocation.accuracy`. After 30 seconds without a fix, the optional callback receives an error and the Promise rejects, so the call always completes. On iOS, radios may be used when the location is too old. The optional callback and Promise receive equivalent results.
 
 ### Events (6)
 | Event | Platform | Description |
@@ -547,6 +567,8 @@ are significant implementation differences between the platforms.
 ---
 
 ## Ti.Geolocation.Android
+> Full released contract: [Titanium.Geolocation.Android](https://titaniumsdk.com/docs/sdk/14.0.0/Titanium.Geolocation.Android)
+
 > Module for Android-specific geolocation functionality.
 > Extends Ti.Module
 > Platforms: android
@@ -567,8 +589,7 @@ Manual configuration involves managing *providers* and *rules*:
 
 Configuring geolocation manually involves three steps:
 
-
-*(See full overview in titanium-docs)*
+Complete overview, setup, examples and version restrictions: [official Titanium.Geolocation.Android API](https://titaniumsdk.com/docs/sdk/14.0.0/Titanium.Geolocation.Android).
 
 ### Properties (unique: 1/7)
 | Property | Type | Default | Platform | Description |
@@ -577,7 +598,6 @@ Configuring geolocation manually involves three steps:
 
 ### Constants (3)
 - **PROVIDER_\***: PROVIDER_GPS, PROVIDER_NETWORK, PROVIDER_PASSIVE
-
 
 ### Methods (6)
 | Method | Returns | Platform | Description |
@@ -589,10 +609,11 @@ Configuring geolocation manually involves three steps:
 | createLocationProvider(parameters) | Ti.Geolocation.Android.LocationProvider | android | Creates and returns an instance of <Titanium.Geolocation.Android.LocationProvid… |
 | createLocationRule(parameters) | Ti.Geolocation.Android.LocationRule | android | Creates and returns an instance of <Titanium.Geolocation.Android.LocationRule>. |
 
-
 ---
 
 ## Ti.Geolocation.Android.LocationProvider
+> Full released contract: [Titanium.Geolocation.Android.LocationProvider](https://titaniumsdk.com/docs/sdk/14.0.0/Titanium.Geolocation.Android.LocationProvider)
+
 > Represents a source of location information, such as GPS.
 > Extends Ti.Proxy
 > Platforms: android
@@ -607,12 +628,11 @@ manually configure location updates.
 | minUpdateTime | Number | — | android | Limits the frequency of location updates to no more than one per `minUpdateTime… |
 | minUpdateDistance | Number | — | android | Don't send a location update unless the location has changed at least `minUpdat… |
 
-
-
-
 ---
 
 ## Ti.Geolocation.Android.LocationRule
+> Full released contract: [Titanium.Geolocation.Android.LocationRule](https://titaniumsdk.com/docs/sdk/14.0.0/Titanium.Geolocation.Android.LocationRule)
+
 > A location rule to filter the results returned by location providers.
 > Extends Ti.Proxy
 > Platforms: android
@@ -630,12 +650,11 @@ manually configure location updates.
 | minAge | Number | — | android | Controls the frequency of location updates. |
 | maxAge | Number | — | android | Controls the freshness of location updates. Do not forward an update unless it … |
 
-
-
-
 ---
 
 ## Ti.WatchSession
+> Full released contract: [Titanium.WatchSession](https://titaniumsdk.com/docs/sdk/14.0.0/Titanium.WatchSession)
+
 > Used to enable data and file transfers between a watchOS and iOS application.
 > Extends Ti.Module
 > Platforms: ios
@@ -661,7 +680,6 @@ using the iOS Watch Connectivity framework introduced in iOS 9 and watchOS 2.
 ### Constants (3)
 - **ACTIVATION_STATE_\***: ACTIVATION_STATE_INACTIVE, ACTIVATION_STATE_ACTIVATED
 - **ACTIVATION_STATE_NOT_\***: ACTIVATION_STATE_NOT_ACTIVATED
-
 
 ### Methods (9)
 | Method | Returns | Platform | Description |

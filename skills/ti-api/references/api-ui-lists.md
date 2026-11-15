@@ -1,23 +1,40 @@
 # Ti.UI Lists & Tables API Reference
 
+<!-- TOC-START -->
+## Contents
+
+- [Ti.UI.ListView](#tiuilistview)
+- [Ti.UI.ListItem](#tiuilistitem)
+- [Ti.UI.ListSection](#tiuilistsection)
+- [Ti.UI.ListViewScrollPosition](#tiuilistviewscrollposition)
+- [Ti.UI.TableView](#tiuitableview)
+- [Ti.UI.TableViewRow](#tiuitableviewrow)
+- [Ti.UI.TableViewSection](#tiuitableviewsection)
+- [Ti.UI.TableViewScrollPosition](#tiuitableviewscrollposition)
+
+<!-- TOC-END -->
+
 ## Ti.UI.ListView
+> Full released contract: [Titanium.UI.ListView](https://titaniumsdk.com/docs/sdk/14.0.0/Titanium.UI.ListView)
+
 > A list view is used to present information, organized in to sections and items, in a vertically-scrolling view.
 > Extends Ti.UI.View
 > Platforms: both
 
 | Android | iOS |
 | ------- | --- |
-| ![Android](./listview_android.png) | ![iOS](./listview_ios.png) |
+| [Android API reference](https://titaniumsdk.com/docs/sdk/14.0.0/Titanium.UI.ListView) | [iOS API reference](https://titaniumsdk.com/docs/sdk/14.0.0/Titanium.UI.ListView) |
 
 Use the <Titanium.UI.createListView> method or **`<ListView>`** Alloy element to create a `ListView`.
 
-A `ListView` object is a container for [ListSection](Titanium.UI.ListSection)
-objects that are, in turn, containers for [ListItem](Titanium.UI.ListItem) objects. This is
-easily visualized as an Alloy view:
+A `ListView` object is a container for [ListSection](https://titaniumsdk.com/docs/sdk/14.0.0/Titanium.UI.ListSection) objects that are, in turn, containers for [ListItem](https://titaniumsdk.com/docs/sdk/14.0.0/Titanium.UI.ListItem) objects. This is easily visualized as an Alloy view:
 
-``` xml
 
-### Properties (unique: 54/122)
+With `snapping: true`, the item closest to the view's center aligns there when scrolling settles. This suits items that fill the visible area. Android uses `LinearSnapHelper`; iOS applies snapping during deceleration and skips a resting position over a header or footer.
+
+The SDK 14.0.0+ `itemlongpress` event provides `section: Ti.UI.ListSection`, `sectionIndex: Number`, `itemIndex: Number`, `itemId: String` and `bindId: String` (when a child control has one). Identify the item using its indices or ID, not `source`; `bindId` identifies the pressed child. Registering this listener prevents `itemclick` for the same long-press touch.
+
+### Properties (unique: 55/124)
 | Property | Type | Default | Platform | Description |
 |----------|------|---------|----------|-------------|
 | touchFeedback | Boolean | true | android | A material design visual construct that provides an instantaneous visual confir… |
@@ -48,6 +65,7 @@ easily visualized as an Alloy view:
 | refreshControl | Ti.UI.RefreshControl | — | both | View positioned above the first row that is only revealed when the user drags t… |
 | searchView | Ti.UI.SearchBar \| Ti.UI.Android.SearchView | — | both | Search field to use for the list view. |
 | searchText | String | — | both | The string to use as the search parameter. |
+| snapping | Boolean | false | both | Center the nearest item after scrolling; SDK 14.0.0+. |
 | caseInsensitiveSearch | Boolean | true | both | Determines if the search performed is case insensitive. |
 | continuousUpdate | Boolean | false | both | Determines if the scrolling event should fire every time there is a new visible… |
 | forceUpdates | Boolean | false | both | Optimize the `continuousUpdate` scrolling event. |
@@ -91,11 +109,12 @@ easily visualized as an Alloy view:
 | setMarker(markerProps) | void | both | Sets a reference item in the list view. |
 | addMarker(markerProps) | void | both | Adds a reference item in the list view. |
 
-### Events (20)
+### Events (21)
 | Event | Platform | Description |
 |-------|----------|-------------|
 | indexclick | ios | Fired when the index bar is clicked by the user. |
 | itemclick | both | Fired when a list row is clicked by the user. |
+| itemlongpress | both | Fired when an item is pressed and held; SDK 14.0.0+. |
 | itemsselected | both | Fired when user stops two-pan gesture interaction for selecting multiple items.… |
 | delete | both | Fired when a list row is deleted by the user. |
 | insert | ios | Fired when a list row is inserted by the user. |
@@ -120,42 +139,70 @@ easily visualized as an Alloy view:
 #### AnimatedOptions
 > A JavaScript object holding an `animated` property. Used for many UI methods as a means of specifying some transition should be animated.
 
-| Property | Type | Description |
-|----------|------|-------------|
-| animated | Boolean | If `true`, animate a transition for the method/value change. Note that for most… |
+| Property | Type | Platform | Description |
+|----------|------|----------|-------------|
+| animated | Boolean | both | If `true`, animate a transition for the method/value change. Note that for most… |
 
 #### AnimatedWithDurationOptions
-> A JavaScript object holding `animated` and `duration` properties. Used on iOS For [TableView](Titanium.UI.TableView) and [ListView](Titanium.UI.ListView) content offset transitions.
+> A JavaScript object holding `animated` and `duration` properties. Used on iOS For [TableView](https://titaniumsdk.com/docs/sdk/14.0.0/Titanium.UI.TableView) and [ListView](https://titaniumsdk.com/docs/sdk/14.0.0/Titanium.UI.ListView) content offset transitions.
 
-| Property | Type | Description |
-|----------|------|-------------|
-| animated | Boolean | If `true`, animate a transition for the method/value change. Note that for most… |
-| duration | Number | The duration in `milliseconds` for animation |
+| Property | Type | Platform | Description |
+|----------|------|----------|-------------|
+| animated | Boolean | both | If `true`, animate a transition for the method/value change. Note that for most… |
+| duration | Number | both | The duration in `milliseconds` for animation |
 
-#### Dictionary
-> Plain JavaScript object.
+#### ListItemEventType
+> The arguments for the <Titanium.UI.ListView.prefetch> and <Titanium.UI.ListView.cancelprefetch> events.
 
-*Plus 6 more types: ListViewMarkerProps, Padding, Point, SelectedItem*
+| Property | Type | Platform | Description |
+|----------|------|----------|-------------|
+| section | Ti.UI.ListSection | ios | List section if the item is contained in a list section. |
+| sectionIndex | Number | ios | Section index. |
+| itemIndex | Number | ios | Item index. |
+| itemId | String | ios | The item ID bound to the list item that generated the event. |
+
+#### ListViewIndexEntry
+> A simple object that represents an index entry in a `ListView`.
+
+| Property | Type | Platform | Description |
+|----------|------|----------|-------------|
+| title | String | ios | Title to display in the index bar. |
+| index | Number | ios | Section index associated with this title. |
+
+#### ListViewMarkerProps
+> The parameter for [setMarker](https://titaniumsdk.com/docs/sdk/14.0.0/Titanium.UI.ListView) and [addMarker](https://titaniumsdk.com/docs/sdk/14.0.0/Titanium.UI.ListView) methods.
+
+| Property | Type | Platform | Description |
+|----------|------|----------|-------------|
+| sectionIndex | Number | both | The sectionIndex of the reference item. |
+| itemIndex | Number | both | The itemIndex of the reference item. |
+
+#### SelectedItem
+> The arguments for the <Titanium.UI.ListView.itemsselected> event.
+
+| Property | Type | Platform | Description |
+|----------|------|----------|-------------|
+| section | Ti.UI.ListSection | both | List section if the item is contained in a list section. |
+| sectionIndex | Number | both | Section index. |
+| itemIndex | Number | both | Item index. |
+
+Also referenced by this API, documented elsewhere: `Dictionary`, [HorizontalInsets](#horizontalinsets), [ListViewAnimationProperties](#listviewanimationproperties), [Padding](api-ui-windows-navigation.md#padding), [Point](api-ui-extras.md#point).
 
 ---
 
 ## Ti.UI.ListItem
+> Full released contract: [Titanium.UI.ListItem](https://titaniumsdk.com/docs/sdk/14.0.0/Titanium.UI.ListItem)
+
 > A list item is an individual item in a list section.
 > Extends Ti.Proxy
 > Platforms: both
 
-A list item is a combination of a <ListDataItem> and <ItemTemplate>.  The list data item
-represents the actual data, while the item template represents the style elements of the item.
+A list item is a combination of a <ListDataItem> and <ItemTemplate>.  The list data item represents the actual data, while the item template represents the style elements of the item.
 
-You should not create `ListItem` objects with a JavaScript factory method, as you do other Titanium proxies.
-Instead, you should pass a <ListDataItem> array to the `setItems` method of a `ListSection`. The list data items
-contain the data you want to display in the list.
+You should not create `ListItem` objects with a JavaScript factory method, as you do other Titanium proxies. Instead, you should pass a <ListDataItem> array to the `setItems` method of a `ListSection`. The list data items contain the data you want to display in the list.
 
-Alloy applications can use **`<ListItem>`** elements to create `ListItem` objects. `<ListItem>` elements
-must be nested inside a **`<ListSection>`** element, which itself is nested in a `<ListView>` element,
-as shown below:
+Alloy applications can use **`<ListItem>`** elements to create `ListItem` objects. `<ListItem>` elements must be nested inside a **`<ListSection>`** element, which itself is nested in a `<ListView>` element, as shown below:
 
-``` xml
 
 ### Properties (unique: 26/28)
 | Property | Type | Default | Platform | Description |
@@ -175,7 +222,7 @@ as shown below:
 | canInsert | Boolean | false | ios | Specifies if the item can be inserted by a user initiated action. |
 | canMove | Boolean | false | both | Specifies if the item can be reordered within the list view by a user initiated… |
 | editActions | Array<RowActionType> | — | ios | Specifies custom action items to be shown when when a list item is edited. |
-| searchableText | String | — | both | The text to match against when the [ListView](Titanium.UI.ListView) is performi… |
+| searchableText | String | — | both | The text to match against when the [ListView](https://titaniumsdk.com/docs/sdk/14.0.0/Titanium.UI.ListView) is performi… |
 | color | String \| Ti.UI.Color | — | both | Default text color of the item when not selected, as a color name or hex triple… |
 | subtitleColor | String \| Ti.UI.Color | — | ios | Default text color of the subtitle, as a color name or hex triplet. |
 | selectedColor | String \| Ti.UI.Color | — | ios | Color to use for the item title when the item is selected, as a color name or h… |
@@ -220,14 +267,15 @@ as shown below:
 ---
 
 ## Ti.UI.ListSection
+> Full released contract: [Titanium.UI.ListSection](https://titaniumsdk.com/docs/sdk/14.0.0/Titanium.UI.ListSection)
+
 > A list section is a container within a list view used to organize list items.
 > Extends Ti.Proxy
 > Platforms: both
 
 Use the <Titanium.UI.createListSection> method or **`<ListSection>`** Alloy element to create a `ListSection`.
 
-List sections are used to manipulate and organize list items contained within it. For examples 
-of using list sections, see the examples in <Titanium.UI.ListView> and <Titanium.UI.ListItem>.
+List sections are used to manipulate and organize list items contained within it. For examples of using list sections, see the examples in <Titanium.UI.ListView> and <Titanium.UI.ListItem>.
 
 ### Properties (unique: 7/9)
 | Property | Type | Default | Platform | Description |
@@ -275,6 +323,8 @@ of using list sections, see the examples in <Titanium.UI.ListView> and <Titanium
 ---
 
 ## Ti.UI.ListViewScrollPosition
+> Full released contract: [Titanium.UI.ListViewScrollPosition](https://titaniumsdk.com/docs/sdk/14.0.0/Titanium.UI.ListViewScrollPosition)
+
 > A set of constants for the position value that can be used for the `position` property of <ListViewAnimationProperties> when invoking the ListView's `scrollToItem`, `appendSection`, `deleteSectionAt`, `insertSectionAt` and `replaceSectionAt` methods.
 > Extends Ti.Proxy
 > Platforms: both
@@ -288,36 +338,43 @@ of using list sections, see the examples in <Titanium.UI.ListView> and <Titanium
 ---
 
 ## Ti.UI.TableView
+> Full released contract: [Titanium.UI.TableView](https://titaniumsdk.com/docs/sdk/14.0.0/Titanium.UI.TableView)
+
 > A table view is used to present information, organized in sections and rows, in a vertically-scrolling view.
 > Extends Ti.UI.View
 > Platforms: both
 
 | Android | iOS |
 | ------- | --- |
-| ![Android](./tableview_android.png) | ![iOS](./tableview_ios.png) |
+| [Android API reference](https://titaniumsdk.com/docs/sdk/14.0.0/Titanium.UI.TableView) | [iOS API reference](https://titaniumsdk.com/docs/sdk/14.0.0/Titanium.UI.TableView) |
 
-A `TableView` object is a container for [TableViewSection](Titanium.UI.TableViewSection)
-objects that are, in turn, containers for [TableViewRow](Titanium.UI.TableViewRow) objects.
+A `TableView` object is a container for [TableViewSection](https://titaniumsdk.com/docs/sdk/14.0.0/Titanium.UI.TableViewSection) objects that are, in turn, containers for [TableViewRow](https://titaniumsdk.com/docs/sdk/14.0.0/Titanium.UI.TableViewRow) objects.
 
 Use the <Titanium.UI.createTableView> method or **`<TableView>`** Alloy element to create a `TableView`.
 
-Also see the [TableViews guide](https://titaniumsdk.com/guide/Titanium_SDK/Titanium_SDK_How-tos/User_Interface_Deep_Dives/TableViews.html).
+Also see the [TableViews guide](https://titaniumsdk.com/docs/build/ui/lists).
 
 ### Creating Tables
 
 There are few approaches to creating and using `TableView` object.
 
 
-*(See full overview in titanium-docs)*
+Complete overview, setup, examples and version restrictions: [official Titanium.UI.TableView API](https://titaniumsdk.com/docs/sdk/14.0.0/Titanium.UI.TableView).
 
-### Properties (unique: 55/122)
+`contentOffset` is available on Android since SDK 12.4.0 and on iPhone/iPad/macOS since 14.0.0. Reading it returns the current scroll offset in the same units as the `scroll` event's `contentOffset`.
+
+`searchText` filters rows without a search bar. It matches `filterAttribute` (`title` by default), honoring `filterCaseInsensitive`, `filterAnchored` and each row's `filterAlwaysInclude`. Set `''` or `null` to show every row again. It cannot be used together with `search`.
+
+`snapping` defaults to `false`. When enabled, the nearest row centers as scrolling settles; this suits rows filling the visible area. Android uses `LinearSnapHelper`; iOS snaps during deceleration and skips headers/footers.
+
+### Properties (unique: 57/125)
 | Property | Type | Default | Platform | Description |
 |----------|------|---------|----------|-------------|
 | backgroundColor | String \| Ti.UI.Color | transparent on non-iOS platforms, white on the iOS platform | both | Background color of the view, as a color name or hex triplet. |
 | touchFeedback | Boolean | true | android | A material design visual construct that provides an instantaneous visual confir… |
 | allowsSelection | Boolean | true | ios | Determines whether this table's rows can be selected. |
 | allowsSelectionDuringEditing | Boolean | false | both | Determines whether this table's rows can be selected while editing the table. |
-| contentOffset | Point | — | android | X and Y coordinates to which to reposition the top-left point of the content re… |
+| contentOffset | Point | — | both | X and Y coordinates to which to reposition the top-left point of the content re… |
 | data | Array<Titanium.UI.TableViewRow> \| Array<Titanium.UI.TableViewSection> | — | both | Rows of the table view. |
 | editable | Boolean | Depends on `editing` and `moving` mode | both | Determines the rows' default editable behavior, which allows them to be deleted… |
 | editing | Boolean | false | both | Determines whether row editing mode is active. |
@@ -345,13 +402,15 @@ There are few approaches to creating and using `TableView` object.
 | overScrollMode | Number | Titanium.UI.Android.OVER_SCROLL_ALWAYS | android | Determines the behavior when the user overscrolls the view. |
 | rowHeight | Number | — | both | Default row height for table view rows. |
 | scrollable | Boolean | true | both | If `true`, the table view can be scrolled. |
+| snapping | Boolean | false | both | Center the nearest row after scrolling; SDK 14.0.0+. |
 | scrollIndicatorStyle | Number | <Titanium.UI.iOS.ScrollIndicatorStyle.DEFAULT> | ios | Style of the scrollbar. |
 | scrollsToTop | Boolean | true | ios | Controls whether the scroll-to-top gesture is effective. |
 | search | Ti.UI.SearchBar \| Ti.UI.Android.SearchView | — | both | Search field to use for the table view. |
+| searchText | String | — | both | Filter rows without a search bar; SDK 14.0.0+. |
 | dimBackgroundForSearch | Boolean | true | ios | A Boolean indicating whether the underlying content is dimmed during a search. |
 | keyboardDismissMode | Number | Undefined (behaves like <Titanium.UI.iOS.KEYBOARD_DISMISS_MODE_NONE>) | ios | The manner in which the keyboard is dismissed when a drag begins in the table v… |
 | showSearchBarInNavBar | Boolean | false | ios | A Boolean indicating whether search bar will be in navigation bar. |
-| searchAsChild | Boolean | true | android | Determines whether the [SearchBar](Titanium.UI.SearchBar) or [SearchView](Titan… |
+| searchAsChild | Boolean | true | android | Determines whether the [SearchBar](https://titaniumsdk.com/docs/sdk/14.0.0/Titanium.UI.SearchBar) or [SearchView](Titan… |
 | searchHidden | Boolean | false (search field visible) | ios | Determines whether the search field is visible. |
 | sectionCount | Number | — | both | Number of sections in this table view. |
 | sections | Array<Titanium.UI.TableViewSection> | — | both | Sections of this table. |
@@ -419,54 +478,88 @@ There are few approaches to creating and using `TableView` object.
 #### AnimatedOptions
 > A JavaScript object holding an `animated` property. Used for many UI methods as a means of specifying some transition should be animated.
 
-| Property | Type | Description |
-|----------|------|-------------|
-| animated | Boolean | If `true`, animate a transition for the method/value change. Note that for most… |
+| Property | Type | Platform | Description |
+|----------|------|----------|-------------|
+| animated | Boolean | both | If `true`, animate a transition for the method/value change. Note that for most… |
 
 #### AnimatedWithDurationOptions
-> A JavaScript object holding `animated` and `duration` properties. Used on iOS For [TableView](Titanium.UI.TableView) and [ListView](Titanium.UI.ListView) content offset transitions.
+> A JavaScript object holding `animated` and `duration` properties. Used on iOS For [TableView](https://titaniumsdk.com/docs/sdk/14.0.0/Titanium.UI.TableView) and [ListView](https://titaniumsdk.com/docs/sdk/14.0.0/Titanium.UI.ListView) content offset transitions.
 
-| Property | Type | Description |
-|----------|------|-------------|
-| animated | Boolean | If `true`, animate a transition for the method/value change. Note that for most… |
-| duration | Number | The duration in `milliseconds` for animation |
+| Property | Type | Platform | Description |
+|----------|------|----------|-------------|
+| animated | Boolean | both | If `true`, animate a transition for the method/value change. Note that for most… |
+| duration | Number | both | The duration in `milliseconds` for animation |
 
 #### HorizontalInsets
-> Dictionary object of parameters for horizontal-only insets applied to [Table](Titanium.UI.TableView) and [List](Titanium.UI.ListView) views. Only `left` and `right` properties are used (see <Padding>).
+> Dictionary object of parameters for horizontal-only insets applied to [Table](https://titaniumsdk.com/docs/sdk/14.0.0/Titanium.UI.TableView) and [List](https://titaniumsdk.com/docs/sdk/14.0.0/Titanium.UI.ListView) views. Only `left` and `right` properties are used (see <Padding>).
 
-| Property | Type | Description |
-|----------|------|-------------|
-| left | Number | Left padding/inset |
-| right | Number | Right padding/inset |
+| Property | Type | Platform | Description |
+|----------|------|----------|-------------|
+| left | Number | both | Left padding/inset |
+| right | Number | both | Right padding/inset |
 
-*Plus 5 more types: SelectedRowObject, Size, TableViewAnimationProperties*
+#### SelectedRowObject
+> The arguments for the <Titanium.UI.TableView.rowsselected> event.
+
+| Property | Type | Platform | Description |
+|----------|------|----------|-------------|
+| index | Number | both | Row index. |
+| row | Ti.UI.TableViewRow | both | Table view row object. |
+| rowData | Dictionary<Titanium.UI.TableViewRow> | both | Properties of the row. Use this property rather than `row` to access any custom… |
+| section | Ti.UI.TableViewSection | both | Table view section object, if the clicked row is contained in a section. |
+
+#### Size
+> A simple object consisting of size measurements.
+
+| Property | Type | Platform | Description |
+|----------|------|----------|-------------|
+| height | Number | both | The height measurement. |
+| width | Number | both | The width measurement. |
+
+#### TableViewAnimationProperties
+> A simple object for specifying the animation properties to use when inserting or deleting rows, or scrolling the table.
+
+| Property | Type | Platform | Description |
+|----------|------|----------|-------------|
+| animated | Boolean | both | Whether this table change should be animated. Ignored if any `animationStyle` v… |
+| animationStyle | Number | both | Type of animation to use for row insertions and deletions. |
+| position | Number | both | Specifies what position to scroll the selected row to. |
+
+#### TableViewIndexEntry
+> A simple object that represents an index entry in a `TableView`.
+
+| Property | Type | Platform | Description |
+|----------|------|----------|-------------|
+| title | String | both | Title to display in the index bar for this item. |
+| index | Number | both | Row index associated with this item. |
+
+Also referenced by this API, documented elsewhere: `Dictionary`, [Padding](api-ui-windows-navigation.md#padding), [Point](api-ui-extras.md#point).
 
 ---
 
 ## Ti.UI.TableViewRow
+> Full released contract: [Titanium.UI.TableViewRow](https://titaniumsdk.com/docs/sdk/14.0.0/Titanium.UI.TableViewRow)
+
 > A table view row is an individual item in a table, organized into table view sections.
 > Extends Ti.UI.View
 > Platforms: both
 
-Use the <Titanium.UI.createTableViewRow> method or **`<TableViewRow>`** Alloy element to create
-a table view row.
+Use the <Titanium.UI.createTableViewRow> method or **`<TableViewRow>`** Alloy element to create a table view row.
 
-These may be explicitly added to [TableViewSection](Titanium.UI.TableViewSection) objects, which are applied
-to a [TableView](Titanium.UI.TableView). If a table section is not specified, one will be
-automatically created.
+These may be explicitly added to [TableViewSection](https://titaniumsdk.com/docs/sdk/14.0.0/Titanium.UI.TableViewSection) objects, which are applied to a [TableView](https://titaniumsdk.com/docs/sdk/14.0.0/Titanium.UI.TableView). If a table section is not specified, one will be automatically created.
 
-A row's contents can be as simple as a single line of text, or comprised of a completely
-customized layout of child views.
+A row's contents can be as simple as a single line of text, or comprised of a completely customized layout of child views.
 
 ### Creating Table View Rows
 
-Rows may be created using the properties directly available on the `TableViewRow` object, to
-achieve the following:
+Rows may be created using the properties directly available on the `TableViewRow` object, to achieve the following:
 
 
-*(See full overview in titanium-docs)*
+Complete overview, setup, examples and version restrictions: [official Titanium.UI.TableViewRow API](https://titaniumsdk.com/docs/sdk/14.0.0/Titanium.UI.TableViewRow).
 
-### Properties (unique: 27/95)
+On iOS, an explicit `height: 0` collapses the row; omitting `height` instead uses the table's `rowHeight`. A table-level `rowHeight` or `minRowHeight` still acts as a lower bound, so setting either can prevent zero-height collapse.
+
+### Properties (unique: 27/96)
 | Property | Type | Default | Platform | Description |
 |----------|------|---------|----------|-------------|
 | accessibilityLabel | String | — | ios | A succinct label associated with the table row for the device's accessibility s… |
@@ -499,12 +592,13 @@ achieve the following:
 
 
 
-### Events (4)
+### Events (5)
 | Event | Platform | Description |
 |-------|----------|-------------|
 | click | both | Fired when a table row is clicked by the user. |
 | touchcancel | ios | Fired when a touch gesture is interrupted by the device. |
 | touchend | ios | Fired when a touch gesture is complete. |
+| touchmove | ios | Fired as soon as the device detects movement of a touch. A row touch event and a table `scroll` event cannot occur concurrently: if the table begins to scroll during a touch, `touchcancel` fires before `scroll` begins. |
 | touchstart | ios | Fired as soon as the device detects a touch gesture against this view. |
 
 ### Related Types
@@ -523,27 +617,22 @@ achieve the following:
 ---
 
 ## Ti.UI.TableViewSection
+> Full released contract: [Titanium.UI.TableViewSection](https://titaniumsdk.com/docs/sdk/14.0.0/Titanium.UI.TableViewSection)
+
 > A table view section is a container within a table used to organize table view rows.
 > Extends Ti.Proxy
 > Platforms: both
 
-Use the <Titanium.UI.createTableViewSection> method or **`<TableViewSection>`** Alloy element to 
-create a `TableViewSection`.
+Use the <Titanium.UI.createTableViewSection> method or **`<TableViewSection>`** Alloy element to create a `TableViewSection`.
 
-Before the table is rendered, the `TableViewSection` [add](Titanium.UI.TableViewSection.add) 
-method may be used to add [TableViewRow](Titanium.UI.TableViewRow) objects to a section. After 
-it is rendered, one of the `TableView` [insertRowBefore](Titanium.UI.TableView.insertRowBefore), 
-[insertRowAfter](Titanium.UI.TableView.insertRowAfter), or 
-[appendRow](Titanium.UI.TableView.appendRow) methods must be used instead. 
+Before the table is rendered, the `TableViewSection` [add](https://titaniumsdk.com/docs/sdk/14.0.0/Titanium.UI.TableViewSection) method may be used to add [TableViewRow](https://titaniumsdk.com/docs/sdk/14.0.0/Titanium.UI.TableViewRow) objects to a section. After it is rendered, one of the `TableView` [insertRowBefore](https://titaniumsdk.com/docs/sdk/14.0.0/Titanium.UI.TableView), [insertRowAfter](https://titaniumsdk.com/docs/sdk/14.0.0/Titanium.UI.TableView), or [appendRow](https://titaniumsdk.com/docs/sdk/14.0.0/Titanium.UI.TableView) methods must be used instead.
 
-To remove a row from a section after the table is rendered, use the `TableView` 
-[deleteRow](Titanium.UI.TableView.deleteRow) method. 
+To remove a row from a section after the table is rendered, use the `TableView` [deleteRow](https://titaniumsdk.com/docs/sdk/14.0.0/Titanium.UI.TableView) method.
 
-In order for a section to be visible, either its `headerTitle` or `headerView` property must be 
-configured. 
+In order for a section to be visible, either its `headerTitle` or `headerView` property must be configured.
 
 
-*(See full overview in titanium-docs)*
+Complete overview, setup, examples and version restrictions: [official Titanium.UI.TableViewSection API](https://titaniumsdk.com/docs/sdk/14.0.0/Titanium.UI.TableViewSection).
 
 ### Properties (unique: 6/9)
 | Property | Type | Default | Platform | Description |
@@ -567,6 +656,8 @@ configured.
 ---
 
 ## Ti.UI.TableViewScrollPosition
+> Full released contract: [Titanium.UI.TableViewScrollPosition](https://titaniumsdk.com/docs/sdk/14.0.0/Titanium.UI.TableViewScrollPosition)
+
 > A set of constants for the position value that can be used for the `position` property of <Titanium.UI.TableView> when invoking `scrollToIndex`.
 > Extends Ti.Proxy
 > Platforms: both

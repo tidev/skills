@@ -1,14 +1,46 @@
 # Modules: NFC API Reference
 
+<!-- TOC-START -->
+## Contents
+
+- [Modules.Nfc](#modulesnfc)
+- [Modules.Nfc.MifareTagTechnology](#modulesnfcmifaretagtechnology)
+- [Modules.Nfc.NativeTagTechnology](#modulesnfcnativetagtechnology)
+- [Modules.Nfc.NdefMessage](#modulesnfcndefmessage)
+- [Modules.Nfc.NdefRecord](#modulesnfcndefrecord)
+- [Modules.Nfc.NdefRecordApplication](#modulesnfcndefrecordapplication)
+- [Modules.Nfc.NdefRecordEmpty](#modulesnfcndefrecordempty)
+- [Modules.Nfc.NdefRecordExternal](#modulesnfcndefrecordexternal)
+- [Modules.Nfc.NdefRecordMedia](#modulesnfcndefrecordmedia)
+- [Modules.Nfc.NdefRecordSmartPoster](#modulesnfcndefrecordsmartposter)
+- [Modules.Nfc.NdefRecordText](#modulesnfcndefrecordtext)
+- [Modules.Nfc.NdefRecordUnknown](#modulesnfcndefrecordunknown)
+- [Modules.Nfc.NdefRecordUri](#modulesnfcndefrecorduri)
+- [Modules.Nfc.NfcAdapter](#modulesnfcnfcadapter)
+- [Modules.Nfc.NfcForegroundDispatchFilter](#modulesnfcnfcforegrounddispatchfilter)
+- [Modules.Nfc.NfcNDEFTag](#modulesnfcnfcndeftag)
+- [Modules.Nfc.NfcNDEFTagTechnology](#modulesnfcnfcndeftagtechnology)
+- [Modules.Nfc.NfcTag](#modulesnfcnfctag)
+- [Modules.Nfc.TagTechnology](#modulesnfctagtechnology)
+- [Modules.Nfc.TagTechnologyIsoDep](#modulesnfctagtechnologyisodep)
+- [Modules.Nfc.TagTechnologyMifareClassic](#modulesnfctagtechnologymifareclassic)
+- [Modules.Nfc.TagTechnologyMifareUltralight](#modulesnfctagtechnologymifareultralight)
+- [Modules.Nfc.TagTechnologyNdef](#modulesnfctagtechnologyndef)
+- [Modules.Nfc.TagTechnologyNdefFormatable](#modulesnfctagtechnologyndefformatable)
+- [Modules.Nfc.TagTechnologyNfcA](#modulesnfctagtechnologynfca)
+- [Modules.Nfc.TagTechnologyNfcB](#modulesnfctagtechnologynfcb)
+- [Modules.Nfc.TagTechnologyNfcF](#modulesnfctagtechnologynfcf)
+- [Modules.Nfc.TagTechnologyNfcV](#modulesnfctagtechnologynfcv)
+
+<!-- TOC-END -->
+
 ## Modules.Nfc
 > A cross-platform Near-Field-Communication (NFC) module for iOS and Android.  Download the latest release via [Github](https://github.com/appcelerator-modules/ti.nfc/releases).
 > Extends Ti.Module
 > Platforms: both
 > Type: module
 
-This module provides access to Near Field Communication (NFC) functionality, 
-allowing applications to read and write (Android-only) NFC tags. 
-A "tag" may actually be another device that appears as a tag.
+This module provides access to Near Field Communication (NFC) functionality, allowing applications to read and write (Android-only) NFC tags. A "tag" may actually be another device that appears as a tag.
 
 ### NFC Resources
 
@@ -99,9 +131,7 @@ A "tag" may actually be another device that appears as a tag.
 > Extends Modules.Nfc.NativeTagTechnology
 > Platforms: ios
 
-Use the <Modules.Nfc.createTagTechnologyMifareUltralight> method to create this tag technology.
-See also:
-[Mifare Ultralight](https://developer.apple.com/documentation/corenfc/nfcmifaretag?language=objc)
+Use the <Modules.Nfc.createTagTechnologyMifareUltralight> method to create this tag technology. See also: [Mifare Ultralight](https://developer.apple.com/documentation/corenfc/nfcmifaretag?language=objc)
 
 
 ### Methods (5)
@@ -140,8 +170,7 @@ Common methods get called for all the native tags so that we can save the redund
 
 Use the <Modules.Nfc.createNdefMessage> method to create an NDEF message.
 
-See also:
-[NdefMessage](http://developer.android.com/reference/android/nfc/NdefMessage.html)
+See also: [NdefMessage](http://developer.android.com/reference/android/nfc/NdefMessage.html)
 
 ### Properties (unique: 1/3)
 | Property | Type | Default | Platform | Description |
@@ -162,10 +191,7 @@ See also:
 > Extends Ti.Proxy
 > Platforms: both
 
-**Android**:
-The NDEF record is the base type for more type-specific NDEF records. You will generally
-work with the type-specific NDEF records (e.g. NdefRecordText, NdefRecordUri, etc.) which have
-more applicable properties for each type of record.
+**Android**: The NDEF record is the base type for more type-specific NDEF records. You will generally work with the type-specific NDEF records (e.g. NdefRecordText, NdefRecordUri, etc.) which have more applicable properties for each type of record.
 
 Use one of the <Modules.Nfc.createNdefRecordApplication>, <Modules.Nfc.createNdefRecordEmpty>,
 
@@ -199,8 +225,7 @@ Use one of the <Modules.Nfc.createNdefRecordApplication>, <Modules.Nfc.createNde
 
 This record type was introduced in Android 4.0 (API level 14).
 
-See also:
-[createApplicationRecord](http://developer.android.com/reference/android/nfc/NdefRecord.html#createApplicationRecord(java.lang.String))
+See also: [createApplicationRecord](http://developer.android.com/reference/android/nfc/NdefRecord.html#createApplicationRecord(java.lang.String))
 
 ### Properties (unique: 1/9)
 | Property | Type | Default | Platform | Description |
@@ -227,8 +252,7 @@ See also:
 > Extends Modules.Nfc.NdefRecord
 > Platforms: android
 
-See also:
-[createExternal](http://developer.android.com/reference/android/nfc/NdefRecord.html#createExternal(java.lang.String,%20java.lang.String,%20byte[]))
+See also: [createExternal](http://developer.android.com/reference/android/nfc/NdefRecord.html#createExternal(java.lang.String,%20java.lang.String,%20byte[]))
 
 ### Properties (unique: 2/10)
 | Property | Type | Default | Platform | Description |
@@ -246,8 +270,7 @@ See also:
 > Extends Modules.Nfc.NdefRecord
 > Platforms: android
 
-See also:
-[createMime](http://developer.android.com/reference/android/nfc/NdefRecord.html#createMime(java.lang.String,%20byte[]))
+See also: [createMime](http://developer.android.com/reference/android/nfc/NdefRecord.html#createMime(java.lang.String,%20byte[]))
 
 ### Properties (unique: 1/9)
 | Property | Type | Default | Platform | Description |
@@ -309,8 +332,7 @@ See also:
 > Extends Modules.Nfc.NdefRecord
 > Platforms: android
 
-See also:
-[createUri](http://developer.android.com/reference/android/nfc/NdefRecord.html#createUri(java.lang.String))
+See also: [createUri](http://developer.android.com/reference/android/nfc/NdefRecord.html#createUri(java.lang.String))
 
 ### Properties (unique: 1/9)
 | Property | Type | Default | Platform | Description |
@@ -327,15 +349,11 @@ See also:
 > Extends Ti.Proxy
 > Platforms: both
 
-The NFC adapter gives you access to the features of the NFC device. The NFC adapter proxy is always
-associated with the activity that was the current activity when it was created. The NFC Adapter must
-be created after the activity has been opened. You can use the window `open` event to know when the
-activity has been opened.
+The NFC adapter gives you access to the features of the NFC device. The NFC adapter proxy is always associated with the activity that was the current activity when it was created. The NFC Adapter must be created after the activity has been opened. You can use the window `open` event to know when the activity has been opened.
 
 Use the <Modules.Nfc.createNfcAdapter> method to create an NFC adapter.
 
-See also:
-[NfcAdapter](http://developer.android.com/reference/android/nfc/NfcAdapter.html)
+See also: [NfcAdapter](http://developer.android.com/reference/android/nfc/NfcAdapter.html)
 
 ### Properties (unique: 8/11)
 | Property | Type | Default | Platform | Description |
@@ -373,15 +391,11 @@ See also:
 > Extends Ti.Proxy
 > Platforms: android
 
-The <Modules.Nfc.NfcAdapter.enableForegroundDispatch> method is used to give priority to the foreground activity when dispatching
-a discovered tag to an application. This proxy is used to specify the intent, intent filters, and technology
-lists used to filter the dispatched intents. This proxy automatically creates the required pending intent and
-will create an intent for the current activity if one is not provided.
+The <Modules.Nfc.NfcAdapter.enableForegroundDispatch> method is used to give priority to the foreground activity when dispatching a discovered tag to an application. This proxy is used to specify the intent, intent filters, and technology lists used to filter the dispatched intents. This proxy automatically creates the required pending intent and will create an intent for the current activity if one is not provided.
 
 Use the <Modules.Nfc.createNfcForegroundDispatchFilter> method to create a foreground dispatch filter.
 
-See also:
-[enableForegroundDispatch](http://developer.android.com/reference/android/nfc/NfcAdapter.html#enableForegroundDispatch(android.app.Activity,%20android.app.PendingIntent,%20android.content.IntentFilter[],%20java.lang.String[][]))
+See also: [enableForegroundDispatch](http://developer.android.com/reference/android/nfc/NfcAdapter.html#enableForegroundDispatch(android.app.Activity,%20android.app.PendingIntent,%20android.content.IntentFilter[],%20java.lang.String[][]))
 
 ### Properties (unique: 3/5)
 | Property | Type | Default | Platform | Description |
@@ -444,8 +458,7 @@ Use the <Modules.Nfc.createTagTechNdef> method to create this NDEF tag technolog
 > Extends Ti.Proxy
 > Platforms: both
 
-See also:
-[Tag](http://developer.android.com/reference/android/nfc/Tag.html)
+See also: [Tag](http://developer.android.com/reference/android/nfc/Tag.html)
 
 ### Properties (unique: 2/5)
 | Property | Type | Default | Platform | Description |
@@ -469,10 +482,7 @@ See also:
 > Extends Ti.Proxy
 > Platforms: android
 
-NFC tags are based on a number of independently developed technologies and offer a wide range of
-capabilities. The TagTechnology proxies provide access to these different technologies and capabilities.
-The TagTechnology proxy is the base type for more type-specific tag technologies. You will
-work with the type-specific tag technology proxies which provide capabilities for each tag technology.
+NFC tags are based on a number of independently developed technologies and offer a wide range of capabilities. The TagTechnology proxies provide access to these different technologies and capabilities. The TagTechnology proxy is the base type for more type-specific tag technologies. You will work with the type-specific tag technology proxies which provide capabilities for each tag technology.
 
 Use one of the <Modules.Nfc.createTagTechnologyIsoDep>, <Modules.Nfc.createTagTechnologyMifareClassic>,
 
@@ -500,8 +510,7 @@ Use one of the <Modules.Nfc.createTagTechnologyIsoDep>, <Modules.Nfc.createTagTe
 
 Use the <Modules.Nfc.createTagTechnologyIsoDep> method to create this tag technology.
 
-See also:
-[IsoDep](http://developer.android.com/reference/android/nfc/tech/IsoDep.html)
+See also: [IsoDep](http://developer.android.com/reference/android/nfc/tech/IsoDep.html)
 
 
 ### Methods (7)
@@ -525,8 +534,7 @@ See also:
 
 Use the <Modules.Nfc.createTagTechnologyMifareClassic> method to create this tag technology.
 
-See also:
-[MifareClassic](http://developer.android.com/reference/android/nfc/tech/MifareClassic.html)
+See also: [MifareClassic](http://developer.android.com/reference/android/nfc/tech/MifareClassic.html)
 
 ### Constants (3)
 - **KEY_\***: KEY_DEFAULT
@@ -567,8 +575,7 @@ See also:
 
 Use the <Modules.Nfc.createTagTechnologyMifareUltralight> method to create this tag technology.
 
-See also:
-[MifareUltralight](http://developer.android.com/reference/android/nfc/tech/MifareUltralight.html)
+See also: [MifareUltralight](http://developer.android.com/reference/android/nfc/tech/MifareUltralight.html)
 
 
 ### Methods (7)
@@ -592,8 +599,7 @@ See also:
 
 Use the <Modules.Nfc.createTagTechnologyNdef> method to create this tag technology.
 
-See also:
-[Ndef](http://developer.android.com/reference/android/nfc/tech/Ndef.html)
+See also: [Ndef](http://developer.android.com/reference/android/nfc/tech/Ndef.html)
 
 
 ### Methods (8)
@@ -618,8 +624,7 @@ See also:
 
 Use the <Modules.Nfc.createTagTechnologyNdefFormatable> method to create this tag technology.
 
-See also:
-[NdefFormatable](http://developer.android.com/reference/android/nfc/tech/NdefFormatable.html)
+See also: [NdefFormatable](http://developer.android.com/reference/android/nfc/tech/NdefFormatable.html)
 
 
 ### Methods (2)
@@ -638,8 +643,7 @@ See also:
 
 Use the <Modules.Nfc.createTagTechnologyNfcA> method to create this tag technology.
 
-See also:
-[NfcA](http://developer.android.com/reference/android/nfc/tech/NfcA.html)
+See also: [NfcA](http://developer.android.com/reference/android/nfc/tech/NfcA.html)
 
 
 ### Methods (6)
@@ -662,8 +666,7 @@ See also:
 
 Use the <Modules.Nfc.createTagTechnologyNfcB> method to create this tag technology.
 
-See also:
-[NfcB](http://developer.android.com/reference/android/nfc/tech/NfcB.html)
+See also: [NfcB](http://developer.android.com/reference/android/nfc/tech/NfcB.html)
 
 
 ### Methods (4)
@@ -684,8 +687,7 @@ See also:
 
 Use the <Modules.Nfc.createTagTechnologyNfcF> method to create this tag technology.
 
-See also:
-[NfcF](http://developer.android.com/reference/android/nfc/tech/NfcF.html)
+See also: [NfcF](http://developer.android.com/reference/android/nfc/tech/NfcF.html)
 
 
 ### Methods (6)
@@ -708,8 +710,7 @@ See also:
 
 Use the <Modules.Nfc.createTagTechnologyNfcV> method to create this tag technology.
 
-See also:
-[NfcV](http://developer.android.com/reference/android/nfc/tech/NfcV.html)
+See also: [NfcV](http://developer.android.com/reference/android/nfc/tech/NfcV.html)
 
 
 ### Methods (4)
