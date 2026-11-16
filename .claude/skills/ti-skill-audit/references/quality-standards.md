@@ -21,7 +21,7 @@ Every fact in a skill's reference must be traceable to an official source.
 Signs that content came from training data rather than official docs:
 
 - **Overly generic advice** — "Always handle errors properly" without specific Titanium context
-- **Methods that don't match SDK** — Check against `.titanium-docs/docs/api/` if unsure
+- **Methods that don't match SDK** — Check the matching released SDK YAML and versioned API registry if unsure
 - **Perfect-sounding examples** — Too clean, too simple, or using patterns not in official docs
 - **Advice about features that don't exist** — e.g. built-in dependency injection, official plugin system
 - **Mixing frameworks** — React Native patterns, Cordova patterns, or web patterns applied to Titanium
@@ -57,7 +57,7 @@ All code examples must use modern ES6+ JavaScript.
 
 - Use `const` by default, `let` only when reassignment is needed
 - Never use `var`
-- Arrow functions for all callbacks (event listeners, promises, array methods)
+- Use arrow functions when appropriate; preserve regular functions when the native callback requires its dynamic `this` receiver
 - Keep `function` declarations for named reusable functions
 - Use template literals for string concatenation
 - Use destructuring where it improves readability
@@ -71,8 +71,8 @@ All code examples must use modern ES6+ JavaScript.
 
 | Domain | Status | Replacement |
 |---|---|---|
-| `docs.appcelerator.com` | Dead | Use relative refs or `.titanium-docs` paths |
-| `wiki.appcelerator.com` | Dead | Use relative refs or `.titanium-docs` paths |
+| `docs.appcelerator.com` | Dead | Use current official guides or the matching released API |
+| `wiki.appcelerator.com` | Dead | Use current official guides or the matching released API |
 | `jira.appcelerator.com` | Dead | Reference ticket numbers only (e.g. `TIMOB-12345`) |
 | `developer.appcelerator.com` | Dead | Use relative refs |
 
@@ -80,7 +80,7 @@ All code examples must use modern ES6+ JavaScript.
 
 - **Internal cross-references**: Use relative markdown links: `[Topic](../other-reference.md)` or `[Topic](./same-dir.md)`.
 - **External URLs**: Only include if verifiable as live. When in doubt, describe the resource without linking.
-- **GitHub URLs**: Acceptable when pointing to specific files in maintained repos under `tidev/`.
+- **GitHub URLs**: Point to reviewed commits or maintained documentation in the source repositories, including TiTools and TiDev.
 - **Generated API docs**: May contain broken URLs (known upstream issue). Flag but do not try to fix upstream URLs.
 
 ---
@@ -141,7 +141,7 @@ Useful background to avoid errors in skill content.
 - **Appcelerator Inc.** developed Titanium SDK and Alloy framework
 - **Axway** acquired Appcelerator in 2016
 - **TiDev** (community organization) maintains Titanium SDK since Axway discontinued commercial support in 2022
-- **Documentation** at `docs.appcelerator.com` is dead. The canonical reference is the `tidev/titanium-docs` repo, which renders to https://titaniumsdk.com.
+- **Documentation** at `docs.appcelerator.com` is dead. Current guides are maintained in `tidev/titaniumsdk.com`; core API contracts come from the matching released `tidev/titanium-sdk` tag. The archived docs are provenance only.
 - **Alloy** remains actively maintained as the MVC framework for Titanium
 
 ### Skill dual purpose

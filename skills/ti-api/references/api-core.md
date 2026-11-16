@@ -1,28 +1,50 @@
 # Ti Core API Reference
 
+<!-- TOC-START -->
+## Contents
+
+- [Titanium](#titanium)
+- [Ti.UI](#tiui)
+- [Ti.API](#tiapi)
+- [Ti.Accelerometer](#tiaccelerometer)
+- [Ti.Blob](#tiblob)
+- [Ti.BlobStream](#tiblobstream)
+- [Ti.Buffer](#tibuffer)
+- [Ti.BufferStream](#tibufferstream)
+- [Ti.Codec](#ticodec)
+- [Ti.Gesture](#tigesture)
+- [Ti.IOStream](#tiiostream)
+- [Ti.Locale](#tilocale)
+- [Ti.Stream](#tistream)
+- [Ti.Utils](#tiutils)
+- [Ti.Proxy](#tiproxy)
+- [Ti.Module](#timodule)
+
+<!-- TOC-END -->
+
 ## Titanium
+> Full released contract: [Titanium](https://titaniumsdk.com/docs/sdk/14.0.0/Titanium)
+
 > The top-level Titanium module.
 > Extends Ti.Module
 > Platforms: both
 > Type: module
 
-The Titanium module provides the Titanium Mobile API, allowing developers to access native
-features of each target environment. Currently, the Android and iOSenvironments are supported.
+The Titanium module provides the Titanium Mobile API, allowing developers to access native features of each target environment. Currently, the Android and iOSenvironments are supported.
 
 ### Titanium Namespace
 
-The complete Titanium API is accessible from the `Titanium` namespace but, for convenience and
-brevity, the alias `Ti` is also provided. As the `Titanium` namespace is functionally-identical
-to its `Ti` alias, it is always recommended to use `Ti` in your code.
+The complete Titanium API is accessible from the `Titanium` namespace but, for convenience and brevity, the alias `Ti` is also provided. As the `Titanium` namespace is functionally-identical to its `Ti` alias, it is always recommended to use `Ti` in your code.
 
 For example, the following pairs of Titanium calls behave exactly the same.
 
 ``` js
 Titanium.API.info('Hello Titanium!');
 Ti.API.info('Hello Titanium!');
+```
 
 
-*(See full overview in titanium-docs)*
+Complete overview, setup, examples and version restrictions: [official Titanium API](https://titaniumsdk.com/docs/sdk/14.0.0/Titanium).
 
 ### Properties (unique: 4/7)
 | Property | Type | Default | Platform | Description |
@@ -54,28 +76,22 @@ Ti.API.info('Hello Titanium!');
 ---
 
 ## Ti.UI
+> Full released contract: [Titanium.UI](https://titaniumsdk.com/docs/sdk/14.0.0/Titanium.UI)
+
 > The main <Titanium.UI> module.
 > Extends Ti.Module
 > Platforms: both
 > Type: module
 
-The UI module is responsible for native user-interface components and interaction inside
-Titanium.  The goal of the UI module is to provide a native experience along with native
-performance by compiling Javascript code into their native counterparts as part of the
-build process.
+The UI module is responsible for native user-interface components and interaction inside Titanium.  The goal of the UI module is to provide a native experience along with native performance by compiling Javascript code into their native counterparts as part of the build process.
 
 ### Design
 
 The UI module is broken down into 3 major area:
 
-* **Views** - [Views](Titanium.UI.View) are containers that host visual elements such as
-controls or other views.  Views can have their properties customized, such as their border color
-and radius, can fire events such as swipe events or touches, and can optionally contain a
-hierarchy or other views as children. In Titanium, most views are specialized to perform both a
-visual function and set of interaction behaviors such as [Table View](Titanium.UI.TableView) or
-[Coverflow View](Titanium.UI.iOS.CoverFlowView).  Views are always named with the suffix `View`.
+* **Views** - [Views](https://titaniumsdk.com/docs/sdk/14.0.0/Titanium.UI.View) are containers that host visual elements such as controls or other views.  Views can have their properties customized, such as their border color and radius, can fire events such as swipe events or touches, and can optionally contain a hierarchy or other views as children. In Titanium, most views are specialized to perform both a visual function and set of interaction behaviors such as [Table View](https://titaniumsdk.com/docs/sdk/14.0.0/Titanium.UI.TableView) or [Coverflow View](https://titaniumsdk.com/docs/sdk/14.0.0/Titanium.UI.iOS.CoverFlowView).  Views are always named with the suffix `View`.
 
-*(See full overview in titanium-docs)*
+Complete overview, setup, examples and version restrictions: [official Titanium.UI API](https://titaniumsdk.com/docs/sdk/14.0.0/Titanium.UI).
 
 ### Properties (unique: 9/285)
 | Property | Type | Default | Platform | Description |
@@ -186,7 +202,7 @@ visual function and set of interaction behaviors such as [Table View](Titanium.U
 - **PICKER_TYPE_DATE_AND_\***: PICKER_TYPE_DATE_AND_TIME
 - **RETURNKEY_\***: RETURNKEY_CONTINUE, RETURNKEY_DEFAULT, RETURNKEY_DONE, RETURNKEY_GO, RETURNKEY_GOOGLE, RETURNKEY_JOIN, RETURNKEY_NEXT, RETURNKEY_ROUTE, RETURNKEY_SEARCH, RETURNKEY_SEND, RETURNKEY_YAHOO
 - **RETURNKEY_EMERGENCY_\***: RETURNKEY_EMERGENCY_CALL
-- **SELECTION_STYLE_\***: SELECTION_STYLE_NONE, SELECTION_STYLE_DEFAULT
+- **SELECTION_STYLE_\***: SELECTION_STYLE_NONE, SELECTION_STYLE_DEFAULT. Apply these values to `Ti.UI.ListItem.selectionStyle` or `Ti.UI.TableViewRow.selectionStyle`.
 - **SEMANTIC_COLOR_TYPE_\***: SEMANTIC_COLOR_TYPE_DARK, SEMANTIC_COLOR_TYPE_LIGHT
 - **SWITCH_STYLE_\***: SWITCH_STYLE_CHECKBOX, SWITCH_STYLE_SLIDER, SWITCH_STYLE_CHIP
 - **SWITCH_STYLE_TOGGLE_\***: SWITCH_STYLE_TOGGLE_BUTTON
@@ -220,7 +236,7 @@ visual function and set of interaction behaviors such as [Table View](Titanium.U
 | createMatrix2D(parameters) | Ti.UI.Matrix2D | both | Creates and returns an instance of <Titanium.UI.Matrix2D>. |
 | createMatrix3D(parameters) | Ti.UI.Matrix3D | both | Creates and returns an instance of <Titanium.UI.Matrix3D>. |
 | convertUnits(convertFromValue, convertToUnits) | Number | both | Converts one type of unit to another using the metrics of the main display. |
-| fetchSemanticColor(colorName) | void | both | Fetches the correct color to be used with a UI element dependent on the users c… |
+| fetchSemanticColor(colorName) | Ti.UI.Color \| String | both | Fetches the correct color to be used with a UI element dependent on the users c… |
 | createView(parameters) | Ti.UI.View | both | Creates and returns an instance of <Titanium.UI.View>. |
 | createActivityIndicator(parameters) | Ti.UI.ActivityIndicator | both | Creates and returns an instance of <Titanium.UI.ActivityIndicator>. |
 | createAlertDialog(parameters) | Ti.UI.AlertDialog | both | Creates and returns an instance of <Titanium.UI.AlertDialog>. |
@@ -288,7 +304,7 @@ visual function and set of interaction behaviors such as [Table View](Titanium.U
 | Property | Type | Description |
 |----------|------|-------------|
 | scale | Number | Scale the matrix by the specified scaling factor. The same scaling factor is us… |
-| rotate | Number | Rotation angle, in degrees. See the [rotate](Titanium.UI.Matrix2D.rotate) metho… |
+| rotate | Number | Rotation angle, in degrees. See the [rotate](https://titaniumsdk.com/docs/sdk/14.0.0/Titanium.UI.Matrix2D) metho… |
 | anchorPoint | Point | Point to rotate around, specified as a dictionary object with `x` and `y` prope… |
 
 #### Matrix3DCreationDict
@@ -301,6 +317,8 @@ visual function and set of interaction behaviors such as [Table View](Titanium.U
 ---
 
 ## Ti.API
+> Full released contract: [Titanium.API](https://titaniumsdk.com/docs/sdk/14.0.0/Titanium.API)
+
 > The top-level API module, containing methods to output messages to the system log.
 > Extends Ti.Module
 > Platforms: both
@@ -322,21 +340,18 @@ visual function and set of interaction behaviors such as [Table View](Titanium.U
 ---
 
 ## Ti.Accelerometer
+> Full released contract: [Titanium.Accelerometer](https://titaniumsdk.com/docs/sdk/14.0.0/Titanium.Accelerometer)
+
 > The top-level Accelerometer module, used to determine the device's physical position.
 > Extends Ti.Module
 > Platforms: both
 > Type: module
 
-An accelerometer is a hardware unit integrated into a mobile device, that detects when the 
-device has moved, and returns its new orientation in a three-dimensional space. With its 
-single `update` event, this module provides an interface to access the output positional data.
+An accelerometer is a hardware unit integrated into a mobile device, that detects when the device has moved, and returns its new orientation in a three-dimensional space. With its single `update` event, this module provides an interface to access the output positional data.
 
-An accelerometer needs to be switched on in order for it to report to the operating system, 
-which consumes a lot of power that will deplete the battery over time. This is why it is 
-recommended that the accelerometer is switched off when not in use.
+An accelerometer needs to be switched on in order for it to report to the operating system, which consumes a lot of power that will deplete the battery over time. This is why it is recommended that the accelerometer is switched off when not in use.
 
-The accelerometer may be switched on and off by simply adding and removing the `update` 
-event listener function. See the example for a demonstration.
+The accelerometer may be switched on and off by simply adding and removing the `update` event listener function. See the example for a demonstration.
 
 
 
@@ -348,27 +363,23 @@ event listener function. See the example for a demonstration.
 ---
 
 ## Ti.Blob
+> Full released contract: [Titanium.Blob](https://titaniumsdk.com/docs/sdk/14.0.0/Titanium.Blob)
+
 > A container for binary data.
 > Extends Ti.Proxy
 > Platforms: both
 
-A `Blob` represents a chunk of binary information, often obtained through
-an [HTTPClient](Titanium.Network.HTTPClient) or by reading a [File](Titanium.Filesystem.File).
+A `Blob` represents a chunk of binary information, often obtained through an [HTTPClient](https://titaniumsdk.com/docs/sdk/14.0.0/Titanium.Network.HTTPClient) or by reading a [File](https://titaniumsdk.com/docs/sdk/14.0.0/Titanium.Filesystem.File).
 
-Blobs are often used to store text or image data.
-The `Blob` object includes a number of properties and methods specific to image blobs.
+Blobs are often used to store text or image data. The `Blob` object includes a number of properties and methods specific to image blobs.
 
-Android supports an [append](Titanium.Blob.append) method, but
-otherwise blobs are immutable.
+Android supports an [append](https://titaniumsdk.com/docs/sdk/14.0.0/Titanium.Blob) method, but otherwise blobs are immutable.
 
-The <Titanium.Utils> module provides several utility methods for working with
-blobs, including methods for converting between blobs and Base64-encoded strings,
-and methods for generating SHA-1 and SHA-256 hashes and MD5 digests from blob data.
+The <Titanium.Utils> module provides several utility methods for working with blobs, including methods for converting between blobs and Base64-encoded strings, and methods for generating SHA-1 and SHA-256 hashes and MD5 digests from blob data.
 
-The [Buffer](Titanium.Buffer) object can also contain binary data, and is
-more easily mutable. Extracting blob data to a buffer is somewhat roundabout:
+The [Buffer](https://titaniumsdk.com/docs/sdk/14.0.0/Titanium.Buffer) object can also contain binary data, and is more easily mutable. Extracting blob data to a buffer is somewhat roundabout:
 
-*(See full overview in titanium-docs)*
+Complete overview, setup, examples and version restrictions: [official Titanium.Blob API](https://titaniumsdk.com/docs/sdk/14.0.0/Titanium.Blob).
 
 ### Properties (unique: 11/14)
 | Property | Type | Default | Platform | Description |
@@ -381,7 +392,7 @@ more easily mutable. Extracting blob data to a buffer is somewhat roundabout:
 | uprightHeight | Number | — | both | If the blob references an image, this provides the height in pixels after facto… |
 | width | Number | — | both | If this blob represents an image, this is the width of the image in pixels. |
 | uprightWidth | Number | — | both | If the blob references an image, this provides the width in pixels after factor… |
-| nativePath | String | — | both | If this blob represents a [File](Titanium.Filesystem.File), this is the file UR… |
+| nativePath | String | — | both | If this blob represents a [File](https://titaniumsdk.com/docs/sdk/14.0.0/Titanium.Filesystem.File), this is the file UR… |
 | size | Number | — | both | Size of the blob in pixels (for image blobs) or bytes (for all other blobs). |
 | rotation | Number | — | android | EXIF rotation of the image if available. Can be `undefined` if no orientation w… |
 
@@ -417,12 +428,13 @@ more easily mutable. Extracting blob data to a buffer is somewhat roundabout:
 ---
 
 ## Ti.BlobStream
+> Full released contract: [Titanium.BlobStream](https://titaniumsdk.com/docs/sdk/14.0.0/Titanium.BlobStream)
+
 > Wrapper around <Titanium.Blob> that implements the <Titanium.IOStream> interface.
 > Extends Ti.IOStream
 > Platforms: both
 
-Use the <Titanium.Stream.createStream> method to create a `BlobStream` instance from a
-`Blob`.
+Use the <Titanium.Stream.createStream> method to create a `BlobStream` instance from a `Blob`.
 
 
 
@@ -430,6 +442,8 @@ Use the <Titanium.Stream.createStream> method to create a `BlobStream` instance 
 ---
 
 ## Ti.Buffer
+> Full released contract: [Titanium.Buffer](https://titaniumsdk.com/docs/sdk/14.0.0/Titanium.Buffer)
+
 > Buffer is a mutable, resizable container for raw data.
 > Extends Ti.Proxy
 > Platforms: both
@@ -464,12 +478,13 @@ Use the <Titanium.createBuffer> method to create a buffer.
 ---
 
 ## Ti.BufferStream
+> Full released contract: [Titanium.BufferStream](https://titaniumsdk.com/docs/sdk/14.0.0/Titanium.BufferStream)
+
 > Wrapper around <Titanium.Buffer> that implements the <Titanium.IOStream> interface.
 > Extends Ti.IOStream
 > Platforms: both
 
-Use the <Titanium.Stream.createStream> method to create a `BufferStream` instance from a
-`Buffer`.
+Use the <Titanium.Stream.createStream> method to create a `BufferStream` instance from a `Buffer`.
 
 
 
@@ -477,28 +492,26 @@ Use the <Titanium.Stream.createStream> method to create a `BufferStream` instanc
 ---
 
 ## Ti.Codec
+> Full released contract: [Titanium.Codec](https://titaniumsdk.com/docs/sdk/14.0.0/Titanium.Codec)
+
 > A module for translating between primitive types and raw byte streams.
 > Extends Ti.Module
 > Platforms: both
 > Type: module
 
-The `Codec` module can be used for encoding strings and numbers into [Buffer](Titanium.Buffer)
-objects, and decoding primitive types from buffers.
+The `Codec` module can be used for encoding strings and numbers into [Buffer](https://titaniumsdk.com/docs/sdk/14.0.0/Titanium.Buffer) objects, and decoding primitive types from buffers.
 
 ### Byte Order
 
-Multi-byte data can be stored in two different byte orders: big-endian or
-little-endian. In big-endian byte order, the most significant or highest-value
-byte is stored first. For example, the 4-byte integer 0xFEDCBA98 is made up of the
-bytes 0xFE, 0xDC, 0xBA and 0x98, from most-significant to least-significant.
+Multi-byte data can be stored in two different byte orders: big-endian or little-endian. In big-endian byte order, the most significant or highest-value byte is stored first. For example, the 4-byte integer 0xFEDCBA98 is made up of the bytes 0xFE, 0xDC, 0xBA and 0x98, from most-significant to least-significant.
 
-If we represent a buffer as an array of byte values, a big-endian encoding of
-0xFEDCBA98 would look like this:
+If we represent a buffer as an array of byte values, a big-endian encoding of 0xFEDCBA98 would look like this:
 
 ``` js
 [ 0xFE, 0xDC, 0xBA, 0x98 ]
+```
 
-*(See full overview in titanium-docs)*
+Complete overview, setup, examples and version restrictions: [official Titanium.Codec API](https://titaniumsdk.com/docs/sdk/14.0.0/Titanium.Codec).
 
 ### Constants (14)
 - **BIG_\***: BIG_ENDIAN
@@ -554,6 +567,8 @@ If we represent a buffer as an array of byte values, a big-endian encoding of
 ---
 
 ## Ti.Gesture
+> Full released contract: [Titanium.Gesture](https://titaniumsdk.com/docs/sdk/14.0.0/Titanium.Gesture)
+
 > The Gesture module is responsible for high-level device gestures such as orientation changes and shake gestures.
 > Extends Ti.Module
 > Platforms: both
@@ -581,12 +596,13 @@ If we represent a buffer as an array of byte values, a big-endian encoding of
 ---
 
 ## Ti.IOStream
+> Full released contract: [Titanium.IOStream](https://titaniumsdk.com/docs/sdk/14.0.0/Titanium.IOStream)
+
 > IOStream is the interface that all stream types implement.
 > Extends Ti.Proxy
 > Platforms: both
 
-See the <Titanium.Stream> module for related utility methods that support asynchronous
-I/O.
+See the <Titanium.Stream> module for related utility methods that support asynchronous I/O.
 
 
 ### Methods (5)
@@ -602,15 +618,14 @@ I/O.
 ---
 
 ## Ti.Locale
+> Full released contract: [Titanium.Locale](https://titaniumsdk.com/docs/sdk/14.0.0/Titanium.Locale)
+
 > The top level Locale module.
 > Extends Ti.Module
 > Platforms: both
 > Type: module
 
-The `Locale` module works with localization files to which are generated during compilation 
-into the operating system specific localization formats. The `Locale` module provides 
-locale-specific strings which can be referenced at runtime.  Additionally, the module 
-contains a few methods and properties for querying device locale information.
+The `Locale` module works with localization files to which are generated during compilation into the operating system specific localization formats. The `Locale` module provides locale-specific strings which can be referenced at runtime.  Additionally, the module contains a few methods and properties for querying device locale information.
 
 The macro `L` can be used as an alias for the <Titanium.Locale.getString> method.
 
@@ -641,16 +656,14 @@ The macro `L` can be used as an alias for the <Titanium.Locale.getString> method
 ---
 
 ## Ti.Stream
+> Full released contract: [Titanium.Stream](https://titaniumsdk.com/docs/sdk/14.0.0/Titanium.Stream)
+
 > Stream module containing stream utility methods.
 > Extends Ti.Module
 > Platforms: both
 > Type: module
 
-This module provides a set of methods for interacting with
-[IOStream](Titanium.IOStream) objects, including asynchronous versions of the
-`read` and `write` methods offered by all stream objects. These
-methods should be used in any place where reading from or writing
-to a stream might block.
+This module provides a set of methods for interacting with [IOStream](https://titaniumsdk.com/docs/sdk/14.0.0/Titanium.IOStream) objects, including asynchronous versions of the `read` and `write` methods offered by all stream objects. These methods should be used in any place where reading from or writing to a stream might block.
 
 See also:
 
@@ -668,9 +681,9 @@ See also:
 | Method | Returns | Platform | Description |
 |--------|---------|----------|-------------|
 | createStream(params) | Ti.IOStream | both | Creates stream from a `Buffer` or `Blob` object. |
-| read(sourceStream, buffer, offset, length, resultsCallback) | void | both | Asynchronously reads data from an [IOStream](Titanium.IOStream) into a buffer. |
-| readAll(sourceStream, buffer, resultsCallback) | void | both | Reads all data from the specified [IOStream](Titanium.IOStream). |
-| write(outputStream, buffer, offset, length, resultsCallback) | void | both | Asynchronously writes data from a buffer to an [IOStream](Titanium.IOStream). |
+| read(sourceStream, buffer, offset, length, resultsCallback) | void | both | Asynchronously reads data from an [IOStream](https://titaniumsdk.com/docs/sdk/14.0.0/Titanium.IOStream) into a buffer. |
+| readAll(sourceStream, buffer, resultsCallback) | Ti.Buffer (synchronous form) | both | Reads all data from the specified [IOStream](https://titaniumsdk.com/docs/sdk/14.0.0/Titanium.IOStream). Omit both optional arguments for a new returned buffer; supply both `buffer` and `resultsCallback` for asynchronous delivery through the callback. |
+| write(outputStream, buffer, offset, length, resultsCallback) | void | both | Asynchronously writes data from a buffer to an [IOStream](https://titaniumsdk.com/docs/sdk/14.0.0/Titanium.IOStream). |
 | writeStream(inputStream, outputStream, maxChunkSize, resultsCallback) | void | both | Writes all data from an input stream to an output stream. |
 | pump(inputStream, handler, maxChunkSize, isAsync) | void | both | Reads data from input stream and passes it to a handler method. |
 
@@ -678,7 +691,7 @@ See also:
 ### Related Types
 
 #### CreateStreamArgs
-> Argument passed to [createStream](Titanium.Stream.createStream).
+> Argument passed to [createStream](https://titaniumsdk.com/docs/sdk/14.0.0/Titanium.Stream).
 
 | Property | Type | Description |
 |----------|------|-------------|
@@ -688,6 +701,8 @@ See also:
 ---
 
 ## Ti.Utils
+> Full released contract: [Titanium.Utils](https://titaniumsdk.com/docs/sdk/14.0.0/Titanium.Utils)
+
 > The top-level Utils module, containing a set of JavaScript methods that are often useful when building applications.
 > Extends Ti.Module
 > Platforms: both
@@ -707,18 +722,15 @@ See also:
 ---
 
 ## Ti.Proxy
+> Full released contract: [Titanium.Proxy](https://titaniumsdk.com/docs/sdk/14.0.0/Titanium.Proxy)
+
 > The base for all Titanium objects.
 > Extends Object
 > Platforms: both
 
-On platforms that use native code (Android and iOS), the `Proxy` type represents a
-JavaScript wrapper or _proxy_ around a native object. Setting or getting a property
-on a proxy object results in a method invocation on the native object. Likewise,
-calling a method on the proxy object results in a method invocation on the native
-object.
+On platforms that use native code (Android and iOS), the `Proxy` type represents a JavaScript wrapper or _proxy_ around a native object. Setting or getting a property on a proxy object results in a method invocation on the native object. Likewise, calling a method on the proxy object results in a method invocation on the native object.
 
-Some Titanium objects are _createable_: new instances of these objects can be created using
-factory methods. For example, a [Window](Titanium.UI.Window) object can be created using the
+Some Titanium objects are _createable_: new instances of these objects can be created using factory methods. For example, a [Window](https://titaniumsdk.com/docs/sdk/14.0.0/Titanium.UI.Window) object can be created using the
 
 ### Properties (unique: 3/3)
 | Property | Type | Default | Platform | Description |
@@ -745,17 +757,16 @@ factory methods. For example, a [Window](Titanium.UI.Window) object can be creat
 ---
 
 ## Ti.Module
+> Full released contract: [Titanium.Module](https://titaniumsdk.com/docs/sdk/14.0.0/Titanium.Module)
+
 > Base type for all Titanium modules.
 > Extends Ti.Proxy
 > Platforms: both
 > Type: module
 
-A Titanium module is a non-createable Titanium object that is exposed through the
-global Titanium object.
+A Titanium module is a non-createable Titanium object that is exposed through the global Titanium object.
 
-For example, the <Titanium.UI> module provides constants and factory methods related
-to UI objects, as well as a few UI-related properties that are not related to a
-specific object.
+For example, the <Titanium.UI> module provides constants and factory methods related to UI objects, as well as a few UI-related properties that are not related to a specific object.
 
 
 

@@ -1,22 +1,38 @@
 # Ti.UI Text & Input API Reference
 
+<!-- TOC-START -->
+## Contents
+
+- [Ti.UI.TextField](#tiuitextfield)
+- [Ti.UI.TextArea](#tiuitextarea)
+- [Ti.UI.SearchBar](#tiuisearchbar)
+- [Ti.UI.AttributedString](#tiuiattributedstring)
+- [Ti.UI.Color](#tiuicolor)
+- [Ti.UI.Clipboard](#tiuiclipboard)
+- [Ti.UI.Picker](#tiuipicker)
+- [Ti.UI.PickerColumn](#tiuipickercolumn)
+- [Ti.UI.PickerRow](#tiuipickerrow)
+
+<!-- TOC-END -->
+
 ## Ti.UI.TextField
+> Full released contract: [Titanium.UI.TextField](https://titaniumsdk.com/docs/sdk/14.0.0/Titanium.UI.TextField)
+
 > A single line text field.
 > Extends Ti.UI.View
 > Platforms: both
 
 | Android | iOS |
 | ------- | --- |
-| ![Android](./textfield_android.png) | ![iOS](./textfield_ios.png) |
+| [Android API reference](https://titaniumsdk.com/docs/sdk/14.0.0/Titanium.UI.TextField) | [iOS API reference](https://titaniumsdk.com/docs/sdk/14.0.0/Titanium.UI.TextField) |
 
 Use the <Titanium.UI.createTextField> method or **`<TextField>`** Alloy element to create a text field.
 
 ### `click` event in iOS
 
-In iOS 11+, `click` event in text field is not fired due to changes from apple.
-Use `touchstart` event instead of `click` event.
+In iOS 11+, `click` event in text field is not fired due to changes from apple. Use `touchstart` event instead of `click` event.
 
-### Properties (unique: 45/116)
+### Properties (unique: 45/117)
 | Property | Type | Default | Platform | Description |
 |----------|------|---------|----------|-------------|
 | keyboardAppearance | Number | <Titanium.UI.KEYBOARD_APPEARANCE_DEFAULT> | ios | Determines the appearance of the keyboard displayed when this field is focused. |
@@ -42,7 +58,7 @@ Use `touchstart` event instead of `click` event.
 | hinttextid | String | — | both | Key identifying a string from the locale file to use for the [hintText](Titaniu… |
 | hintType | Number | <Titanium.UI.HINT_TYPE_STATIC> | android | Hint type to display on the text field. |
 | inputType | Array<Number> | Empty array. If not defined, default is Keyboard type specified by <Titanium.UI.TextField.keyboardType>. | android | Input type to accept in the text field. Also influences the Keyboard type to di… |
-| keyboardToolbar | Array<Titanium.UI.View> \| Ti.UI.Toolbar | — | ios | Array of toolbar button objects or a [toolbar](Titanium.UI.Toolbar) to be used … |
+| keyboardToolbar | Array<Titanium.UI.View> \| Ti.UI.Toolbar | — | ios | Array of toolbar button objects or a [toolbar](https://titaniumsdk.com/docs/sdk/14.0.0/Titanium.UI.Toolbar) to be used … |
 | keyboardToolbarColor | String \| Ti.UI.Color | — | ios | Color of the keyboard toolbar if keyboardToolbar is an array, as a color name o… |
 | keyboardToolbarHeight | Number | — | ios | Height of the keyboard toolbar if keyboardToolbar is an array. |
 | keyboardType | Number | <Titanium.UI.KEYBOARD_TYPE_DEFAULT> | both | Keyboard type to display when this text field is focused. |
@@ -117,22 +133,25 @@ Use `touchstart` event instead of `click` event.
 ---
 
 ## Ti.UI.TextArea
+> Full released contract: [Titanium.UI.TextArea](https://titaniumsdk.com/docs/sdk/14.0.0/Titanium.UI.TextArea)
+
 > A multiline text field that supports editing and scrolling.
 > Extends Ti.UI.View
 > Platforms: both
 
 | Android | iOS |
 | ------- | --- |
-| ![Android](./textarea_android.png) | ![iOS](./textarea_ios.png) |
+| [Android API reference](https://titaniumsdk.com/docs/sdk/14.0.0/Titanium.UI.TextArea) | [iOS API reference](https://titaniumsdk.com/docs/sdk/14.0.0/Titanium.UI.TextArea) |
 
 Use the <Titanium.UI.createTextArea> method or **&lt;TextArea&gt;** Alloy element to create a text area.
 
 ### `click` event in iOS
 
-In iOS 11+, `click` event in text area is not fired due to changes from apple.
-Use `touchstart` event instead of `click` event.
+In iOS 11+, `click` event in text area is not fired due to changes from apple. Use `touchstart` event instead of `click` event.
 
-### Properties (unique: 40/111)
+`scrollable` is supported on Android since SDK 14.0.0 and on iPhone/iPad/macOS since 13.3.0; its default remains `true`. Setting it to `false` disables gesture scrolling while typing still scrolls the cursor into view. Android consumes drag gestures in this mode, so long-press-and-drag selection extension is unavailable; selection handles still work.
+
+### Properties (unique: 40/112)
 | Property | Type | Default | Platform | Description |
 |----------|------|---------|----------|-------------|
 | keyboardAppearance | Number | <Titanium.UI.KEYBOARD_APPEARANCE_DEFAULT> | ios | Determines the appearance of the keyboard displayed when this text area is focu… |
@@ -158,13 +177,13 @@ Use `touchstart` event instead of `click` event.
 | hintType | Number | <Titanium.UI.HINT_TYPE_STATIC> | android | Hint type to display on the text field. |
 | handleLinks | Boolean | false | ios | Specifies if the text area should allow user interaction with the given URL in … |
 | html | String | — | both | Pass a HTML-based string and it will be formatted accordingly. |
-| keyboardToolbar | Array<Titanium.UI.View> \| Ti.UI.Toolbar | — | ios | Array of toolbar button objects or a [toolbar](Titanium.UI.Toolbar) to be used … |
+| keyboardToolbar | Array<Titanium.UI.View> \| Ti.UI.Toolbar | — | ios | Array of toolbar button objects or a [toolbar](https://titaniumsdk.com/docs/sdk/14.0.0/Titanium.UI.Toolbar) to be used … |
 | keyboardToolbarColor | String \| Ti.UI.Color | — | ios | Color of the keyboard toolbar if keyboardToolbar is an array, as a color name o… |
 | keyboardToolbarHeight | Number | — | ios | Height of the keyboard toolbar if keyboardToolbar is an array. |
 | keyboardType | Number | <Titanium.UI.KEYBOARD_DEFAULT> | both | Keyboard type to display when this text area is focused. |
-| lines | Number | 1 | android | Number of lines tall the text area height will be, if set. |
+| lines | Number | 1 | both | Number of lines tall the text area height will be, if set. |
 | maxLength | Number | -1 | both | Maximum length of text field input. |
-| maxLines | Number | -1 | android | Maximum line count of text field input. |
+| maxLines | Number | -1 | both | Maximum line count of text field input. |
 | padding | Padding | — | both | Sets the left and right padding of this TextArea. The text will always be verti… |
 | returnKeyType | Number | <Titanium.UI.RETURNKEY_DEFAULT> | ios | Specifies the text to display on the keyboard `Return` key when this text area … |
 | scrollsToTop | Boolean | true | ios | Controls whether the scroll-to-top gesture is effective. |
@@ -172,9 +191,9 @@ Use `touchstart` event instead of `click` event.
 | suppressReturn | Boolean | — | ios | Determines if the return key should be suppressed during text entry. |
 | textAlign | String \| Number | <Titanium.UI.TEXT_ALIGNMENT_LEFT> | both | Text alignment within this text area. This has no effect on `hintText` when `hi… |
 | value | String | — | both | Value of this text area, which may be set programmatically and modified by the … |
-| scrollable | Boolean | true | ios | Determines whether this text area can be scrolled. |
+| scrollable | Boolean | true | both | Determines whether this text area can be scrolled. |
 | selection | textAreaSelectedParams | — | both | Returns the currently selected text of the text area. |
-| verticalAlign | Number \| String | <Titanium.UI.TEXT_VERTICAL_ALIGNMENT_TOP> | android | Vertical alignment within this text area. |
+| verticalAlign | Number \| String | <Titanium.UI.TEXT_VERTICAL_ALIGNMENT_TOP> | both | Vertical alignment within this text area. |
 
 
 ### Methods (4)
@@ -227,20 +246,18 @@ Use `touchstart` event instead of `click` event.
 | length | Number | Number of characters selected. |
 
 ---
-
 ## Ti.UI.SearchBar
+> Full released contract: [Titanium.UI.SearchBar](https://titaniumsdk.com/docs/sdk/14.0.0/Titanium.UI.SearchBar)
+
 > A specialized text field for entering search text.
 > Extends Ti.UI.View
 > Platforms: both
 
 | Android | iOS |
 | ------- | --- |
-| ![Android](./searchbar_android.png) | ![iOS](./searchbar_ios.png) |
+| [Android API reference](https://titaniumsdk.com/docs/sdk/14.0.0/Titanium.UI.SearchBar) | [iOS API reference](https://titaniumsdk.com/docs/sdk/14.0.0/Titanium.UI.SearchBar) |
 
-Search bars are most commonly used for filtering the rows in a [TableView](Titanium.UI.TableView) and
-[ListView](Titanium.UI.ListView). You can add a search bar to a table view via its
-[search](Titanium.UI.TableView.search) property. You can add a search bar to a list view via its
-[searchBar](Titanium.UI.SearchBar) property.
+Search bars are most commonly used for filtering the rows in a [TableView](https://titaniumsdk.com/docs/sdk/14.0.0/Titanium.UI.TableView) and [ListView](https://titaniumsdk.com/docs/sdk/14.0.0/Titanium.UI.ListView). You can add a search bar to a table view via its [search](https://titaniumsdk.com/docs/sdk/14.0.0/Titanium.UI.TableView) property. You can add a search bar to a list view via its [searchBar](https://titaniumsdk.com/docs/sdk/14.0.0/Titanium.UI.SearchBar) property.
 
 A search bar can also be used on its own.
 
@@ -249,9 +266,9 @@ Use the <Titanium.UI.createSearchBar> method or Alloy **`<SearchBar>`** element 
 ### Android Notes
 
 
-*(See full overview in titanium-docs)*
+Complete overview, setup, examples and version restrictions: [official Titanium.UI.SearchBar API](https://titaniumsdk.com/docs/sdk/14.0.0/Titanium.UI.SearchBar).
 
-### Properties (unique: 23/95)
+### Properties (unique: 23/96)
 | Property | Type | Default | Platform | Description |
 |----------|------|---------|----------|-------------|
 | autocapitalization | Number | Titanium.UI.TEXT_AUTOCAPITALIZATION_NONE | both | Determines how text is capitalized during typing. |
@@ -276,7 +293,7 @@ Use the <Titanium.UI.createSearchBar> method or Alloy **`<SearchBar>`** element 
 | showCancel | Boolean | false | both | Determines whether the cancel button is displayed. |
 | style | Number | Titanium.UI.iOS.SEARCH_BAR_STYLE_PROMINENT | ios | Determines the style of the search bar. |
 | value | String | — | both | Value of the search bar. |
-| tokens | Array<String> | — | ios | The token of a search text field |
+| tokens | Array<String> | `[]` | ios | Search text-field tokens; requires iOS 13 or later. |
 
 
 ### Methods (5)
@@ -319,17 +336,17 @@ Use the <Titanium.UI.createSearchBar> method or Alloy **`<SearchBar>`** element 
 ---
 
 ## Ti.UI.AttributedString
+> Full released contract: [Titanium.UI.AttributedString](https://titaniumsdk.com/docs/sdk/14.0.0/Titanium.UI.AttributedString)
+
 > An attributed string proxy manages character strings and associated sets of attributes (for example, font and foregroundcolor) that apply to individual characters or ranges of characters in the string.
 > Extends Ti.Proxy
 > Platforms: both
 
 The AttributedString proxy is created with the <Titanium.UI.createAttributedString> method.
 
-The `text` property must be set initially in the constructor when creating an attributed string.
-The [attributes](Titanium.UI.AttributedString.attributes) can either be set in the constructor or after it has been created.
+The `text` property must be set initially in the constructor when creating an attributed string. The [attributes](https://titaniumsdk.com/docs/sdk/14.0.0/Titanium.UI.AttributedString) can either be set in the constructor or after it has been created.
 
-For examples of Attributed Strings, see the
-[Attributed Strings guide](https://titaniumsdk.com/guide/Titanium_SDK/Titanium_SDK_How-tos/User_Interface_Deep_Dives/Attributed_Strings.html).
+For examples of Attributed Strings, see the [Attributed Strings guide](https://titaniumsdk.com/docs/build/ui).
 
 ### Properties (unique: 2/5)
 | Property | Type | Default | Platform | Description |
@@ -341,7 +358,7 @@ For examples of Attributed Strings, see the
 ### Methods (1)
 | Method | Returns | Platform | Description |
 |--------|---------|----------|-------------|
-| addAttribute(attribute) | void | both | Adds an [attribute](Attribute) with the given name and value to the characters … |
+| addAttribute(attribute) | void | both | Adds an [attribute](https://titaniumsdk.com/docs/sdk/14.0.0/Attribute) with the given name and value to the characters … |
 
 
 ### Related Types
@@ -354,17 +371,20 @@ For examples of Attributed Strings, see the
 | type | Number | Attribute to apply to the text. |
 | value | String \| Number \| Ti.UI.Color \| Object \| ParagraphAttribute | Attribute value. |
 | range | Array<Number> | Attribute range. |
+| underline | Boolean | Android SDK 14.0.0+: `ATTRIBUTE_LINK` underline; defaults to `true`. |
 
 ---
 
 ## Ti.UI.Color
+> Full released contract: [Titanium.UI.Color](https://titaniumsdk.com/docs/sdk/14.0.0/Titanium.UI.Color)
+
 > Represents a color used for UI components.
 > Extends Ti.Proxy
 > Platforms: both
 
-This type may be used on iOS for assignment to any property typically taking a String color value.
-A developer is not expected to typically interact with a <Titanium.UI.Color> object, as we generate them
-under the hood when converting the passed in String representations. One major exception is use of the
+On iOS, a `Ti.UI.Color` can be assigned to properties that normally accept a String color. Titanium normally converts color strings into these objects internally. `Ti.UI.fetchSemanticColor()` returns a color object that adapts the receiver to light/dark changes.
+
+On Android, `Ti.UI.Android.getColorResource()` also returns a color object. Only Android SDK versions **before 10.2.0** require conversion with `toHex()` before passing it to a UI color property; do not apply that old restriction to SDK 14.0.0.
 
 
 ### Methods (1)
@@ -376,28 +396,23 @@ under the hood when converting the passed in String representations. One major e
 ---
 
 ## Ti.UI.Clipboard
+> Full released contract: [Titanium.UI.Clipboard](https://titaniumsdk.com/docs/sdk/14.0.0/Titanium.UI.Clipboard)
+
 > A module used for accessing clipboard data.
 > Extends Ti.Module
 > Platforms: both
 > Type: module
 
-The Clipboard is a temporary data store, used to save a single item of data that may then
-be accessed by the user using UI copy and paste interactions within an app or between apps.
+The Clipboard is a temporary data store, used to save a single item of data that may then be accessed by the user using UI copy and paste interactions within an app or between apps.
 
-On iOS, the module's `setData()` and `getData()` methods enable multiple representations of the
-same data item to be stored together with their respective
-[MIME type](http://en.wikipedia.org/wiki/Internet_media_type) to describe their format. For
-example, `'text'` and `'text/plain'` for text, and `'image/jpg'` and `'image/png'` for an image.
-iOS Will report back the type of data representation in `getItems()` as 
-[Universal Type Identifiers](https://developer.apple.com/library/archive/documentation/Miscellaneous/Reference/UTIRef/Articles/System-DeclaredUniformTypeIdentifiers.html).
+On iOS, the module's `setData()` and `getData()` methods enable multiple representations of the same data item to be stored together with their respective [MIME type](http://en.wikipedia.org/wiki/Internet_media_type) to describe their format. For example, `'text'` and `'text/plain'` for text, and `'image/jpg'` and `'image/png'` for an image. iOS Will report back the type of data representation in `getItems()` as [Universal Type Identifiers](https://developer.apple.com/library/archive/documentation/Miscellaneous/Reference/UTIRef/Articles/System-DeclaredUniformTypeIdentifiers.html).
 
-When working with text, either of the `getData()`/`setData()` methods may be used with a `'text/plain'` type, or
-the `getText()`/`hasText()`/`setText()` methods without the need to specify the type.
+When working with text, either of the `getData()`/`setData()` methods may be used with a `'text/plain'` type, or the `getText()`/`hasText()`/`setText()` methods without the need to specify the type.
 
 Android currently only supports text data to be stored.
 
 
-*(See full overview in titanium-docs)*
+Complete overview, setup, examples and version restrictions: [official Titanium.UI.Clipboard API](https://titaniumsdk.com/docs/sdk/14.0.0/Titanium.UI.Clipboard).
 
 ### Properties (unique: 3/6)
 | Property | Type | Default | Platform | Description |
@@ -439,29 +454,25 @@ Android currently only supports text data to be stored.
 ---
 
 ## Ti.UI.Picker
+> Full released contract: [Titanium.UI.Picker](https://titaniumsdk.com/docs/sdk/14.0.0/Titanium.UI.Picker)
+
 > A control used to select one or more fixed values.
 > Extends Ti.UI.View
 > Platforms: both
 
 | Android | iOS |
 | ------- | --- |
-| ![Android](./picker_android.png) | ![iOS](./picker_ios.png) |
+| [Android API reference](https://titaniumsdk.com/docs/sdk/14.0.0/Titanium.UI.Picker) | [iOS API reference](https://titaniumsdk.com/docs/sdk/14.0.0/Titanium.UI.Picker) |
 
 Use the <Titanium.UI.createPicker> method or Alloy **`<Picker>`** element to create a picker control.
 
-On Android, the `useSpinner` property must be enabled to support multiple columns.
-By default, the spinner is automatically sized to fit its content and can overflow
-to additional spinner rows. The size of the picker can be adjusted with the `width`
-and `height` properties, but may omit picker columns or cut off picker rows
-if the size is set too small. This property is deprecated. Please use the default
-Android native "dropdown" style by not setting `useSpinner` to `true`.
+On Android, the `useSpinner` property must be enabled to support multiple columns. By default, the spinner is automatically sized to fit its content and can overflow to additional spinner rows. The size of the picker can be adjusted with the `width` and `height` properties, but may omit picker columns or cut off picker rows if the size is set too small. This property is deprecated. Please use the default Android native "dropdown" style by not setting `useSpinner` to `true`.
 
-On iOS, the `height` property is only available in iOS 9 and later.
-By default, the size of the picker, including its background, is fixed at the
+On iOS, the `height` property is only available in iOS 9 and later. By default, the size of the picker, including its background, is fixed at the
 
-*(See full overview in titanium-docs)*
+Complete overview, setup, examples and version restrictions: [official Titanium.UI.Picker API](https://titaniumsdk.com/docs/sdk/14.0.0/Titanium.UI.Picker).
 
-### Properties (unique: 24/78)
+### Properties (unique: 24/79)
 | Property | Type | Default | Platform | Description |
 |----------|------|---------|----------|-------------|
 | backgroundColor | String \| Ti.UI.Color | White (iOS), Transparent (Android) | both | Background color of the picker, as a color name or hex triplet. |
@@ -523,19 +534,19 @@ By default, the size of the picker, including its background, is fixed at the
 ---
 
 ## Ti.UI.PickerColumn
+> Full released contract: [Titanium.UI.PickerColumn](https://titaniumsdk.com/docs/sdk/14.0.0/Titanium.UI.PickerColumn)
+
 > A picker column, representing a selectable group of items in a <Titanium.UI.Picker>.
 > Extends Ti.UI.View
 > Platforms: both
 
-Use the <Titanium.UI.createPickerColumn> method to create a picker column control. In an Alloy application,
-you can use a **`<PickerColumn>`** element inside a `<Picker>` element. You can also use `<Column>`
-as a shorthand for `<PickerColumn>` (see Examples).
+Use the <Titanium.UI.createPickerColumn> method to create a picker column control. In an Alloy application, you can use a **`<PickerColumn>`** element inside a `<Picker>` element. You can also use `<Column>` as a shorthand for `<PickerColumn>` (see Examples).
 
 On Android, the `useSpinner` property must be enabled to support multiple columns.
 
 See <Titanium.UI.Picker> for further examples of usage.
 
-### Properties (unique: 3/11)
+### Properties (unique: 3/12)
 | Property | Type | Default | Platform | Description |
 |----------|------|---------|----------|-------------|
 | rowCount | Number | — | both | Number of rows in this column. |
@@ -566,17 +577,17 @@ See <Titanium.UI.Picker> for further examples of usage.
 ---
 
 ## Ti.UI.PickerRow
+> Full released contract: [Titanium.UI.PickerRow](https://titaniumsdk.com/docs/sdk/14.0.0/Titanium.UI.PickerRow)
+
 > A picker row, representing a selectable item in a <Titanium.UI.Picker>.
 > Extends Ti.UI.View
 > Platforms: both
 
-Use the <Titanium.UI.createPickerRow> method to create a picker row control. In an Alloy application,
-you can use a **`<PickerRow>`** element inside a `<PickerColumn>` element. You can also use `<Row>`
-as a shorthand for `<PickerRow>` (see Examples).
+Use the <Titanium.UI.createPickerRow> method to create a picker row control. In an Alloy application, you can use a **`<PickerRow>`** element inside a `<PickerColumn>` element. You can also use `<Row>` as a shorthand for `<PickerRow>` (see Examples).
 
 Views added to picker rows is only supported on iOS.
 
-### Properties (unique: 3/75)
+### Properties (unique: 3/76)
 | Property | Type | Default | Platform | Description |
 |----------|------|---------|----------|-------------|
 | color | String \| Ti.UI.Color | — | both | Color of the item text, as a color name or hex triplet. |
